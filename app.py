@@ -674,23 +674,30 @@ st.markdown(f"""
     @media (max-width: 900px) {{
         section[data-testid="stSidebar"] {{
             position: static !important;
-            width: 100vw !important;
-            max-width: 100vw !important;
+            width: 100% !important;
+            max-width: 100% !important;
             min-width: 0 !important;
             height: auto !important;
             box-shadow: none !important;
+            margin-bottom: 1.5rem !important;
+            display: block !important;
         }}
         .stSidebar {{
             min-width: 0 !important;
-            max-width: 100vw !important;
-            width: 100vw !important;
+            max-width: 100% !important;
+            width: 100% !important;
+            display: block !important;
         }}
         div.block-container {{
             margin-left: 0 !important;
             max-width: 100vw !important;
+            width: 100vw !important;
+            padding: 0 1vw !important;
         }}
         .main-header {{
             font-size: 2rem !important;
+            word-break: normal !important;
+            white-space: normal !important;
         }}
         .song-grid-row {{
             flex-direction: column;
@@ -699,8 +706,10 @@ st.markdown(f"""
         .song-grid-btn {{
             max-width: 100% !important;
             width: 100% !important;
-            font-size: 1rem !important;
+            font-size: 1.1rem !important;
             padding: 0.7rem 0.5rem !important;
+            word-break: normal !important;
+            white-space: normal !important;
         }}
         .emoji-scroll {{
             font-size: 1.5rem !important;
@@ -727,7 +736,7 @@ st.markdown(f"""
             padding: 0.7em !important;
         }}
         .song-grid-btn {{
-            font-size: 0.95rem !important;
+            font-size: 1rem !important;
             padding: 0.5rem 0.3rem !important;
         }}
         .emoji-scroll {{
