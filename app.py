@@ -694,6 +694,12 @@ st.markdown(f"""
             box-shadow: 0 2px 8px #ffb6d540;
             cursor: pointer;
         }}
+        .main-header, .song-grid-btn, .block-container, .stApp {{
+            word-break: normal !important;
+            white-space: normal !important;
+            width: 100% !important;
+            max-width: 100vw !important;
+        }}
         .main-header {{
             margin-top: 3.5em !important;
         }}
