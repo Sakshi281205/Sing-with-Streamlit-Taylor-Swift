@@ -713,6 +713,41 @@ st.markdown(f"""
             display: none !important;
         }}
     }}
+    .song-grid-btn {
+        flex: 1 1 24%;
+        min-width: 180px;
+        max-width: 24%;
+        background: #fff0f6;
+        color: #111;
+        border-radius: 12px;
+        border: 1px solid #ffb6d5;
+        font-size: 1rem;
+        font-family: 'Montserrat', sans-serif;
+        margin: 0.2rem 0.2rem;
+        box-shadow: 0 2px 8px #ffb6d540;
+        transition: transform 0.1s, box-shadow 0.1s;
+        cursor: pointer;
+        padding: 0.7rem 0.5rem;
+        text-align: left;
+        white-space: normal;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 60px;
+    }
+    @media (max-width: 900px) {{
+        .song-grid-btn {{
+            min-width: 90vw !important;
+            max-width: 100vw !important;
+            width: 100vw !important;
+            flex-basis: 100% !important;
+            height: 60px !important;
+            font-size: 1.1rem !important;
+            padding: 0.7rem 0.5rem !important;
+            margin: 0.3rem auto !important;
+            justify-content: center !important;
+        }}
+    }}
     </style>
 """, unsafe_allow_html=True)
 
@@ -966,8 +1001,8 @@ def main():
         justify-content: flex-start;
     }
     .song-grid-btn {
-        flex: 1 1 22%;
-        min-width: 0;
+        flex: 1 1 24%;
+        min-width: 180px;
         max-width: 24%;
         background: #fff0f6;
         color: #111;
@@ -982,6 +1017,10 @@ def main():
         padding: 0.7rem 0.5rem;
         text-align: left;
         white-space: normal;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 60px;
     }
     .song-grid-btn:hover {
         background: #ffe4ec;
