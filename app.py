@@ -21,15 +21,19 @@ SPOTIFY_REDIRECT_URI = "http://localhost"
 
 # Function to get Spotify preview URL and track link
 def get_spotify_preview_url(song_title, artist="Taylor Swift"):
-    sp = spotipy.Spotify(auth_manager=SpotifyClientCredentials(
-        client_id=SPOTIFY_CLIENT_ID,
-        client_secret=SPOTIFY_CLIENT_SECRET
-    ))
-    results = sp.search(q=f"track:{song_title} artist:{artist}", type="track", limit=1)
-    tracks = results.get("tracks", {}).get("items", [])
-    if tracks:
-        return tracks[0].get("preview_url"), tracks[0].get("external_urls", {}).get("spotify")
-    return None, None
+    try:
+        sp = spotipy.Spotify(auth_manager=SpotifyClientCredentials(
+            client_id=SPOTIFY_CLIENT_ID,
+            client_secret=SPOTIFY_CLIENT_SECRET
+        ))
+        results = sp.search(q=f"track:{song_title} artist:{artist}", type="track", limit=1)
+        tracks = results.get("tracks", {}).get("items", [])
+        if tracks:
+            return tracks[0].get("preview_url"), tracks[0].get("external_urls", {}).get("spotify")
+        return None, None
+    except Exception as e:
+        st.warning(f"Spotify preview unavailable: {e}")
+        return None, None
 
 # Era-specific configuration with enhanced themes
 ERA_CONFIG = {
@@ -766,12 +770,13 @@ def scrape_lyrics_from_url(url):
         return None
     soup = BeautifulSoup(page.content, "html.parser")
     lyrics = ""
-    # Remove language links and navigation
-    for nav in soup.find_all(['a', 'span', 'div'], string=re.compile(r'^(Afrikaans|Slovenščina|Español|Français|Deutsch|Italiano|Magyar|Polski|Português|Русский|Svenska|Türkçe|Українська|日本語|한국어|ไทย|Română|Česky|Català|فارسی|Беларуская|العربية|简体中文|繁體中文)$', re.IGNORECASE)):
-        nav.decompose()
-    # Try multiple selectors for lyrics
+    # Genius now uses multiple <div data-lyrics-container='true'> blocks for lyrics
+    lyrics_blocks = soup.find_all("div", attrs={"data-lyrics-container": "true"})
+    if lyrics_blocks:
+        lyrics = "\n".join(block.get_text(separator="\n").strip() for block in lyrics_blocks)
+        return lyrics.strip()
+    # Fallback: try old selectors
     lyrics_selectors = [
-        "div[data-lyrics-container='true']",
         "div.lyrics",
         "div[class*='lyrics']",
         "div[class*='Lyrics']",
@@ -781,39 +786,9 @@ def scrape_lyrics_from_url(url):
         lyrics_elements = soup.select(selector)
         if lyrics_elements:
             for element in lyrics_elements:
-                # Remove any unwanted elements
-                for unwanted in element.find_all(text=re.compile(r'Read More|Contributors|Translations|How to Format Lyrics|Type out all lyrics|Lyrics should be broken down|Use section headers|Use italics|To learn more|transcription guide|transcribers forum|Embed|Cancel', re.IGNORECASE)):
-                    if isinstance(unwanted, Tag) and unwanted.parent:
-                        unwanted.parent.decompose()
                 text = element.get_text(separator="\n")
-                # Clean up the text
-                text = re.sub(r'Read More.*', '', text, flags=re.IGNORECASE)
-                text = re.sub(r'Contributors.*', '', text, flags=re.IGNORECASE)
-                text = re.sub(r'Translations.*', '', text, flags=re.IGNORECASE)
-                text = re.sub(r'[0-9]+ Contributors.*', '', text, flags=re.IGNORECASE)
-                text = re.sub(r'^(Afrikaans|Slovenščina|Español|Français|Deutsch|Italiano|Magyar|Polski|Português|Русский|Svenska|Türkçe|Українська|日本語|한국어|ไทย|Română|Česky|Català|فارسی|Беларуская|العربية|简体中文|繁體中文)$', '', text, flags=re.MULTILINE)
-                text = re.sub(r'How to Format Lyrics.*', '', text, flags=re.IGNORECASE)
-                text = re.sub(r'Type out all lyrics.*', '', text, flags=re.IGNORECASE)
-                text = re.sub(r'Lyrics should be broken down.*', '', text, flags=re.IGNORECASE)
-                text = re.sub(r'Use section headers.*', '', text, flags=re.IGNORECASE)
-                text = re.sub(r'Use italics.*', '', text, flags=re.IGNORECASE)
-                text = re.sub(r'To learn more.*', '', text, flags=re.IGNORECASE)
-                text = re.sub(r'transcription guide.*', '', text, flags=re.IGNORECASE)
-                text = re.sub(r'transcribers forum.*', '', text, flags=re.IGNORECASE)
-                text = re.sub(r'Embed.*', '', text, flags=re.IGNORECASE)
-                text = re.sub(r'Cancel.*', '', text, flags=re.IGNORECASE)
                 if text.strip():
                     lyrics += text + "\n"
-    # Try to get the full description if present
-    desc = soup.find('div', class_=re.compile(r'RichText__Root'))
-    if desc:
-        desc_text = desc.get_text(separator=" ").strip()
-        if desc_text.endswith('...'):
-            # Try to find a sibling or parent with more text
-            more = desc.find_next_sibling('div')
-            if more:
-                desc_text += ' ' + more.get_text(separator=" ").strip()
-        lyrics = desc_text + "\n" + lyrics
     return lyrics.strip() if lyrics else None
 
 def get_lyrics(song_title):
@@ -1032,6 +1007,24 @@ def main():
 
     st.markdown('<div class="main-header">Taylor Swift Lyrics & Word Cloud</div>', unsafe_allow_html=True)
     st.markdown(f'<div class="quote">{random.choice(TAYLOR_QUOTES)}</div>', unsafe_allow_html=True)
+    # Persistent scroll-to-top script for all navigation/rerun
+    st.markdown("""
+    <script>
+    (function() {
+      const scrollToTop = () => window.scrollTo({top: 0, behavior: 'smooth'});
+      document.addEventListener("DOMContentLoaded", scrollToTop);
+      new MutationObserver(scrollToTop).observe(document.body, {childList: true, subtree: true});
+    })();
+    </script>
+    """, unsafe_allow_html=True)
+    # Force scroll-to-top on every song change
+    dummy_scroll_key = st.session_state.get("song_input", "")
+    st.markdown(f'<div id="scroll-dummy-{dummy_scroll_key}" style="display:none"></div>', unsafe_allow_html=True)
+    st.markdown("""
+    <script>
+    window.scrollTo({top: 0, behavior: 'smooth'});
+    </script>
+    """, unsafe_allow_html=True)
 
     # Scrollable emojis with album links
     emoji_album_map = [
@@ -1095,15 +1088,12 @@ def main():
             era = get_era_for_song(song_title)
             era_class = era.lower().replace(' ', '-')
             st.markdown(f'<div class="era-header-{era_class}">🎵 {song_title} • {era} Era</div>', unsafe_allow_html=True)
+            # Add scroll-to-top script with unique key before lyrics
+            scroll_key = f"{song_title}_{random.randint(0, 1_000_000)}"
+            st.markdown(f'<script id="scroll-script-{scroll_key}">window.scrollTo({{top: 0, behavior: "smooth"}});</script>', unsafe_allow_html=True)
             # Add annotations to lyrics
             annotated_lyrics = add_annotations_to_lyrics(clean_lyrics(lyrics), song_title)
             st.markdown(f'<div class="era-lyrics-{era_class}">' + annotated_lyrics.replace("\n", "<br>") + '</div>', unsafe_allow_html=True)
-            # Inject JS to scroll to top after lyrics are displayed
-            st.markdown("""
-            <script>
-            window.scrollTo({top: 0, behavior: 'smooth'});
-            </script>
-            """, unsafe_allow_html=True)
             # Display era facts
             if era in ERA_CONFIG:
                 facts = ERA_CONFIG[era]["facts"]
@@ -1120,22 +1110,13 @@ def main():
                 hashtag_html += f'<span class="hashtag">{hashtag}</span>'
             hashtag_html += '</div>'
             st.markdown(hashtag_html, unsafe_allow_html=True)
-            # Vinyl record player animation and Now Playing info
-            st.markdown("### 🎵 Now Playing")
-            # Find artist for the song
-            song_info = next((s for s in SONG_LIST if s["Song"].lower() == song_title.lower()), None)
-            artist = song_info["Artist"] if song_info else "Taylor Swift"
-            st.markdown(f"<div class='now-playing'><b>{song_title}</b> by <b>{artist}</b></div>", unsafe_allow_html=True)
-            # Spotify preview and link
-            preview_url, spotify_url = get_spotify_preview_url(song_title, artist)
-            if preview_url:
-                st.audio(preview_url, format="audio/mp3")
-            if spotify_url:
-                st.markdown(f"[Listen on Spotify]({spotify_url})", unsafe_allow_html=True)
+            # Spotify preview and link (no Spotipy, just a direct link)
+            spotify_search_url = f'https://open.spotify.com/search/{song_title.replace(" ", "%20")} %20{era.replace(" ", "%20")}'
+            st.markdown(f'<a href="{spotify_search_url}" target="_blank" style="display:inline-block;margin:0.5em 0;padding:0.7em 1.2em;background:#1DB954;color:#fff;border-radius:8px;text-decoration:none;font-weight:bold;">Listen on Spotify 🎧</a>', unsafe_allow_html=True)
             # Generate word cloud
             st.markdown("### ☁️ Word Cloud")
             img = create_wordcloud(lyrics, ERA_CONFIG[era]["color"])
-            st.image(img, use_column_width=True, output_format="PNG", caption=None, clamp=False, channels="RGB")
+            st.image(img, use_container_width=True, output_format="PNG", caption=None, clamp=False, channels="RGB")
             st.markdown('<style>.element-container img {max-width: 100% !important; width: 100% !important; height: auto !important;}</style>', unsafe_allow_html=True)
             # Era info
             st.info(f"🎤 **{era} Era**: {ERA_CONFIG[era]['font']} font • {ERA_CONFIG[era]['color']} theme • {ERA_CONFIG[era]['animation']} animation")
