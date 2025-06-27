@@ -13,58 +13,58 @@ GENIUS_ACCESS_TOKEN = "YQkWoMNacdeC9oX7Uf1m-qkKULs5a8mUI700Kq7ZmFrXA_NRsW6B3Gee5
 # Era-specific configuration
 ERA_CONFIG = {
     "Debut": {
-        "color": "#90EE90",  # Light green
-        "font": "Dancing Script",
+        "color": "#228B22",  # Forest green
+        "font": "Montserrat",
         "songs": ["Our Song", "Tim McGraw", "Teardrops on My Guitar", "Picture to Burn"]
     },
     "Fearless": {
-        "color": "#FFD700",  # Gold
-        "font": "Great Vibes",
+        "color": "#DAA520",  # Goldenrod
+        "font": "Poppins",
         "songs": ["Fearless", "You Belong With Me", "Love Story", "Fifteen", "White Horse"]
     },
     "Speak Now": {
-        "color": "#DDA0DD",  # Lilac
-        "font": "Cinzel Decorative",
+        "color": "#8A2BE2",  # Blue violet
+        "font": "Roboto",
         "songs": ["Enchanted", "Long Live", "Mine", "Back to December", "Mean"]
     },
     "Red": {
         "color": "#DC143C",  # Crimson red
-        "font": "Bebas Neue",
+        "font": "Open Sans",
         "songs": ["22", "We Are Never Ever Getting Back Together", "I Knew You Were Trouble", "All Too Well", "Red"]
     },
     "1989": {
-        "color": "#87CEEB",  # Light blue
-        "font": "Montserrat",
+        "color": "#4169E1",  # Royal blue
+        "font": "Lato",
         "songs": ["Style", "Blank Space", "Shake It Off", "Wildest Dreams", "Bad Blood", "Out of the Woods"]
     },
     "Reputation": {
         "color": "#2F2F2F",  # Dark gray
-        "font": "UnifrakturCook",
+        "font": "Inter",
         "songs": ["Ready For It", "Delicate", "Don't Blame Me", "Look What You Made Me Do", "Getaway Car"]
     },
     "Lover": {
-        "color": "#FFB6C1",  # Pastel pink
-        "font": "Parisienne",
+        "color": "#FF69B4",  # Hot pink
+        "font": "Nunito",
         "songs": ["Cruel Summer", "Lover", "The Man", "You Need to Calm Down", "The Archer", "Miss Americana"]
     },
     "Folklore": {
-        "color": "#C0C0C0",  # Gray
-        "font": "Cormorant Garamond",
+        "color": "#696969",  # Dim gray
+        "font": "Source Sans Pro",
         "songs": ["The 1", "Betty", "The Last Great American Dynasty", "August", "Illicit Affairs", "Cardigan"]
     },
     "Evermore": {
-        "color": "#CD853F",  # Rust/Orange
-        "font": "EB Garamond",
+        "color": "#CD853F",  # Peru (rust/orange)
+        "font": "Ubuntu",
         "songs": ["Willow", "Champagne Problems", "Tolerate It", "Marjorie", "Tis the Damn Season"]
     },
     "Midnights": {
         "color": "#191970",  # Midnight blue
-        "font": "Orbitron",
+        "font": "Raleway",
         "songs": ["Lavender Haze", "Anti-Hero", "Midnight Rain", "Vigilante Shit", "Bejeweled", "Karma"]
     },
     "TTPD": {
-        "color": "#800020",  # Deep burgundy
-        "font": "Spectral",
+        "color": "#8B0000",  # Dark red
+        "font": "Work Sans",
         "songs": ["Fortnight", "The Tortured Poets Department", "The Black Dog", "But Daddy I Love Him", "So Long London"]
     }
 }
@@ -93,14 +93,14 @@ def get_era_styles(era):
     config = ERA_CONFIG.get(era, ERA_CONFIG["Lover"])
     return f"""
     .era-lyrics-{era.lower().replace(' ', '-')} {{
-        background: linear-gradient(135deg, {config['color']}15 0%, {config['color']}25 100%);
+        background: linear-gradient(135deg, {config['color']}20 0%, {config['color']}30 100%);
         border-left: 6px solid {config['color']};
         border-radius: 16px;
         padding: 2em;
         margin: 1.5em 0;
         font-size: 1.2rem;
-        color: #2c2c2c;
-        font-family: '{config['font']}', cursive;
+        color: #1a1a1a;
+        font-family: '{config['font']}', sans-serif;
         white-space: pre-line;
         box-shadow: 0 8px 32px {config['color']}40, 0 4px 16px rgba(0,0,0,0.1);
         transform: translateY(0);
@@ -112,16 +112,12 @@ def get_era_styles(era):
         box-shadow: 0 12px 40px {config['color']}50, 0 6px 20px rgba(0,0,0,0.15);
     }}
     .era-header-{era.lower().replace(' ', '-')} {{
-        font-family: '{config['font']}', cursive;
+        font-family: '{config['font']}', sans-serif;
         color: {config['color']};
         font-size: 2.5rem;
         text-align: center;
         margin-bottom: 1.5em;
-        text-shadow: 2px 2px 4px rgba(0,0,0,0.3), 0 0 20px {config['color']}40;
-        background: linear-gradient(45deg, {config['color']}, {config['color']}80);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
         font-weight: bold;
     }}
     """
@@ -134,46 +130,45 @@ all_era_styles = "\n".join([get_era_styles(era) for era in ERA_CONFIG.keys()])
 
 st.markdown(f"""
     <style>
-    @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Great+Vibes&family=Cinzel+Decorative&family=Bebas+Neue&family=Montserrat:wght@400;600&family=UnifrakturCook&family=Parisienne&family=Cormorant+Garamond&family=EB+Garamond&family=Orbitron&family=Spectral&family=Poppins:wght@400;600&family=Playfair+Display:wght@700&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Poppins:wght@400;600;700&family=Roboto:wght@400;500;700&family=Open+Sans:wght@400;600;700&family=Lato:wght@400;700&family=Inter:wght@400;600;700&family=Nunito:wght@400;600;700&family=Source+Sans+Pro:wght@400;600;700&family=Ubuntu:wght@400;500;700&family=Raleway:wght@400;600;700&family=Work+Sans:wght@400;600;700&display=swap');
     
     html, body, [class*="css"] {{
         font-family: 'Poppins', sans-serif;
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        background: #1e1e2e;
         min-height: 100vh;
+        color: #ffffff;
     }}
     
     .main-header {{
-        font-family: 'Playfair Display', serif;
+        font-family: 'Montserrat', sans-serif;
         font-size: 4rem;
-        background: linear-gradient(45deg, #FF69B4, #9370DB, #FFD700, #87CEEB);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
+        color: #FF69B4;
         text-align: center;
         margin-bottom: 1em;
-        text-shadow: 3px 3px 6px rgba(0,0,0,0.3);
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
         font-weight: bold;
         letter-spacing: 2px;
         animation: glow 2s ease-in-out infinite alternate;
     }}
     
     @keyframes glow {{
-        from {{ text-shadow: 3px 3px 6px rgba(0,0,0,0.3), 0 0 20px #FF69B4; }}
-        to {{ text-shadow: 3px 3px 6px rgba(0,0,0,0.3), 0 0 30px #9370DB, 0 0 40px #FFD700; }}
+        from {{ text-shadow: 2px 2px 4px rgba(0,0,0,0.5), 0 0 20px #FF69B4; }}
+        to {{ text-shadow: 2px 2px 4px rgba(0,0,0,0.5), 0 0 30px #9370DB, 0 0 40px #FFD700; }}
     }}
     
     .quote {{
-        font-family: 'Dancing Script', cursive;
+        font-family: 'Poppins', sans-serif;
         color: #FFD700;
         font-size: 1.5rem;
         text-align: center;
         margin-bottom: 2em;
-        text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+        text-shadow: 1px 1px 3px rgba(0,0,0,0.7);
         background: rgba(255,255,255,0.1);
-        padding: 1em;
+        padding: 1.5em;
         border-radius: 20px;
         backdrop-filter: blur(10px);
         border: 1px solid rgba(255,255,255,0.2);
+        font-weight: 600;
     }}
     
     .stButton > button {{
@@ -191,6 +186,7 @@ st.markdown(f"""
         transition: all 0.3s ease;
         text-transform: uppercase;
         letter-spacing: 1px;
+        font-family: 'Poppins', sans-serif;
     }}
     
     .stButton > button:hover {{
@@ -206,7 +202,7 @@ st.markdown(f"""
         padding: 2em;
         margin: 2em 0;
         text-align: center;
-        box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+        box-shadow: 0 8px 32px rgba(0,0,0,0.3);
         backdrop-filter: blur(10px);
         border: 1px solid rgba(255,255,255,0.2);
     }}
@@ -214,7 +210,7 @@ st.markdown(f"""
     .footer {{
         text-align: center;
         color: #FFD700;
-        font-family: 'Dancing Script', cursive;
+        font-family: 'Poppins', sans-serif;
         font-size: 1.3rem;
         margin-top: 3em;
         padding: 2em;
@@ -222,6 +218,7 @@ st.markdown(f"""
         border-radius: 20px;
         backdrop-filter: blur(10px);
         border: 1px solid rgba(255,255,255,0.2);
+        font-weight: 600;
     }}
     
     .stTextInput > div > div > input {{
@@ -230,7 +227,9 @@ st.markdown(f"""
         border: 2px solid rgba(147, 112, 219, 0.3);
         padding: 1em;
         font-size: 1.1rem;
-        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        color: #1a1a1a;
+        font-family: 'Poppins', sans-serif;
     }}
     
     .stTextInput > div > div > input:focus {{
@@ -262,6 +261,15 @@ st.markdown(f"""
     
     .stSidebar > div > div > div {{
         background: transparent !important;
+    }}
+    
+    .stMarkdown {{
+        color: #ffffff;
+    }}
+    
+    .stMarkdown h1, .stMarkdown h2, .stMarkdown h3 {{
+        color: #ffffff;
+        font-family: 'Poppins', sans-serif;
     }}
     
     {all_era_styles}
