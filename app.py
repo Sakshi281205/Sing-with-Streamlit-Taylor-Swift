@@ -17,101 +17,101 @@ ERA_CONFIG = {
     "Debut": {
         "color": "#228B22",  # Forest green
         "font": "Montserrat",
-        "background": "linear-gradient(135deg, #90EE90 0%, #228B22 100%)",
+        "background": "linear-gradient(135deg, #e8f5e8 0%, #228B22 100%)",
         "animation": "butterflies",
         "icon": "🤠",
-        "cursor": "url('data:image/svg+xml;utf8,<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\"><path fill=\"%23228B22\" d=\"M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z\"/></svg>'), auto",
-        "songs": ["Our Song", "Tim McGraw", "Teardrops on My Guitar", "Picture to Burn"]
+        "songs": ["Our Song", "Tim McGraw", "Teardrops on My Guitar", "Picture to Burn"],
+        "facts": ["Taylor's debut album was released when she was just 16", "The album was recorded in Nashville, Tennessee", "Tim McGraw was the first single released"]
     },
     "Fearless": {
         "color": "#DAA520",  # Goldenrod
         "font": "Poppins",
-        "background": "linear-gradient(135deg, #FFD700 0%, #DAA520 100%)",
+        "background": "linear-gradient(135deg, #fff8dc 0%, #DAA520 100%)",
         "animation": "glitter",
         "icon": "🎸",
-        "cursor": "url('data:image/svg+xml;utf8,<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\"><path fill=\"%23DAA520\" d=\"M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z\"/></svg>'), auto",
-        "songs": ["Fearless", "You Belong With Me", "Love Story", "Fifteen", "White Horse"]
+        "songs": ["Fearless", "You Belong With Me", "Love Story", "Fifteen", "White Horse"],
+        "facts": ["Fearless won Album of the Year at the 2010 Grammys", "Love Story was inspired by Romeo and Juliet", "The album sold over 12 million copies worldwide"]
     },
     "Speak Now": {
         "color": "#8A2BE2",  # Blue violet
         "font": "Roboto",
-        "background": "linear-gradient(135deg, #DDA0DD 0%, #8A2BE2 100%)",
+        "background": "linear-gradient(135deg, #f0e6ff 0%, #8A2BE2 100%)",
         "animation": "lanterns",
         "icon": "⭐",
-        "cursor": "url('data:image/svg+xml;utf8,<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\"><path fill=\"%238A2BE2\" d=\"M12 2L13.09 8.26L20 9l-5.5 5.39L15.18 21L12 17.77L8.82 21L9.5 14.39L4 9l6.91-.74L12 2z\"/></svg>'), auto",
-        "songs": ["Enchanted", "Long Live", "Mine", "Back to December", "Mean"]
+        "songs": ["Enchanted", "Long Live", "Mine", "Back to December", "Mean"],
+        "facts": ["Taylor wrote every song on Speak Now by herself", "The album was recorded in secret", "Enchanted was written about Adam Young from Owl City"]
     },
     "Red": {
         "color": "#DC143C",  # Crimson red
         "font": "Open Sans",
-        "background": "linear-gradient(135deg, #FF6347 0%, #DC143C 100%)",
+        "background": "linear-gradient(135deg, #ffe6e6 0%, #DC143C 100%)",
         "animation": "leaves",
         "icon": "🧣",
-        "cursor": "url('data:image/svg+xml;utf8,<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\"><path fill=\"%23DC143C\" d=\"M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z\"/></svg>'), auto",
-        "songs": ["22", "We Are Never Ever Getting Back Together", "I Knew You Were Trouble", "All Too Well", "Red"]
+        "songs": ["22", "We Are Never Ever Getting Back Together", "I Knew You Were Trouble", "All Too Well", "Red"],
+        "facts": ["All Too Well is considered one of Taylor's best songs", "The red scarf became a famous Swiftie symbol", "The album marked Taylor's transition to pop music"]
     },
     "1989": {
         "color": "#4169E1",  # Royal blue
         "font": "Lato",
-        "background": "linear-gradient(135deg, #87CEEB 0%, #4169E1 100%)",
+        "background": "linear-gradient(135deg, #e6f3ff 0%, #4169E1 100%)",
         "animation": "polaroid",
         "icon": "🏙️",
-        "cursor": "url('data:image/svg+xml;utf8,<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\"><path fill=\"%234169E1\" d=\"M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z\"/></svg>'), auto",
-        "songs": ["Style", "Blank Space", "Shake It Off", "Wildest Dreams", "Bad Blood", "Out of the Woods"]
+        "songs": ["Style", "Blank Space", "Shake It Off", "Wildest Dreams", "Bad Blood", "Out of the Woods"],
+        "facts": ["1989 was Taylor's first full pop album", "The album was named after her birth year", "Shake It Off became a global anthem"]
     },
     "Reputation": {
         "color": "#2F2F2F",  # Dark gray
         "font": "Inter",
-        "background": "linear-gradient(135deg, #4A4A4A 0%, #2F2F2F 100%)",
+        "background": "linear-gradient(135deg, #f5f5f5 0%, #2F2F2F 100%)",
         "animation": "static",
         "icon": "🐍",
-        "cursor": "url('data:image/svg+xml;utf8,<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\"><path fill=\"%232F2F2F\" d=\"M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z\"/></svg>'), auto",
-        "songs": ["Ready For It", "Delicate", "Don't Blame Me", "Look What You Made Me Do", "Getaway Car"]
+        "songs": ["Ready For It", "Delicate", "Don't Blame Me", "Look What You Made Me Do", "Getaway Car"],
+        "facts": ["Reputation was Taylor's response to media scrutiny", "The snake imagery became iconic", "The album was released after a year of silence"]
     },
     "Lover": {
         "color": "#FF69B4",  # Hot pink
         "font": "Nunito",
-        "background": "linear-gradient(135deg, #FFB6C1 0%, #FF69B4 100%)",
+        "background": "linear-gradient(135deg, #ffe6f2 0%, #FF69B4 100%)",
         "animation": "hearts",
         "icon": "🌈",
-        "cursor": "url('data:image/svg+xml;utf8,<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\"><path fill=\"%23FF69B4\" d=\"M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z\"/></svg>'), auto",
-        "songs": ["Cruel Summer", "Lover", "The Man", "You Need to Calm Down", "The Archer", "Miss Americana"]
+        "songs": ["Cruel Summer", "Lover", "The Man", "You Need to Calm Down", "The Archer", "Miss Americana"],
+        "facts": ["Lover was inspired by Taylor's relationship with Joe Alwyn", "The album celebrates love in all forms", "Cruel Summer was written about the summer of 2019"]
     },
     "Folklore": {
         "color": "#696969",  # Dim gray
         "font": "Source Sans Pro",
-        "background": "linear-gradient(135deg, #C0C0C0 0%, #696969 100%)",
+        "background": "linear-gradient(135deg, #f8f8f8 0%, #696969 100%)",
         "animation": "raindrops",
         "icon": "🌲",
-        "cursor": "url('data:image/svg+xml;utf8,<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\"><path fill=\"%23696969\" d=\"M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z\"/></svg>'), auto",
-        "songs": ["The 1", "Betty", "The Last Great American Dynasty", "August", "Illicit Affairs", "Cardigan"]
+        "songs": ["The 1", "Betty", "The Last Great American Dynasty", "August", "Illicit Affairs", "Cardigan"],
+        "facts": ["Folklore was written and recorded during quarantine", "The album tells fictional stories", "Cardigan was the lead single"]
     },
     "Evermore": {
         "color": "#CD853F",  # Peru (rust/orange)
         "font": "Ubuntu",
-        "background": "linear-gradient(135deg, #DEB887 0%, #CD853F 100%)",
+        "background": "linear-gradient(135deg, #fff8f0 0%, #CD853F 100%)",
         "animation": "snowfall",
         "icon": "❄️",
-        "cursor": "url('data:image/svg+xml;utf8,<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\"><path fill=\"%23CD853F\" d=\"M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z\"/></svg>'), auto",
-        "songs": ["Willow", "Champagne Problems", "Tolerate It", "Marjorie", "Tis the Damn Season"]
+        "songs": ["Willow", "Champagne Problems", "Tolerate It", "Marjorie", "Tis the Damn Season"],
+        "facts": ["Evermore is the sister album to Folklore", "The album was a surprise release", "Willow was the lead single"]
     },
     "Midnights": {
         "color": "#191970",  # Midnight blue
         "font": "Raleway",
-        "background": "linear-gradient(135deg, #4169E1 0%, #191970 100%)",
+        "background": "linear-gradient(135deg, #e6e6fa 0%, #191970 100%)",
         "animation": "stars",
         "icon": "⭐",
-        "cursor": "url('data:image/svg+xml;utf8,<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\"><path fill=\"%23191970\" d=\"M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z\"/></svg>'), auto",
-        "songs": ["Lavender Haze", "Anti-Hero", "Midnight Rain", "Vigilante Shit", "Bejeweled", "Karma"]
+        "songs": ["Lavender Haze", "Anti-Hero", "Midnight Rain", "Vigilante Shit", "Bejeweled", "Karma"],
+        "facts": ["Midnights explores 13 sleepless nights", "Anti-Hero became Taylor's biggest hit", "The album was inspired by sleepless nights"]
     },
     "TTPD": {
         "color": "#8B0000",  # Dark red
         "font": "Work Sans",
-        "background": "linear-gradient(135deg, #800020 0%, #8B0000 100%)",
+        "background": "linear-gradient(135deg, #ffe6e6 0%, #8B0000 100%)",
         "animation": "typewriter",
         "icon": "✒️",
-        "cursor": "url('data:image/svg+xml;utf8,<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\"><path fill=\"%238B0000\" d=\"M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z\"/></svg>'), auto",
-        "songs": ["Fortnight", "The Tortured Poets Department", "The Black Dog", "But Daddy I Love Him", "So Long London"]
+        "songs": ["Fortnight", "The Tortured Poets Department", "The Black Dog", "But Daddy I Love Him", "So Long London"],
+        "facts": ["TTPD is Taylor's 11th studio album", "The album explores themes of heartbreak and poetry", "Fortnight features Post Malone"]
     }
 }
 
@@ -170,7 +170,7 @@ def get_era_styles(era):
     config = ERA_CONFIG.get(era, ERA_CONFIG["Lover"])
     return f"""
     .era-lyrics-{era.lower().replace(' ', '-')} {{
-        background: linear-gradient(135deg, {config['color']}20 0%, {config['color']}30 100%);
+        background: linear-gradient(135deg, {config['color']}15 0%, {config['color']}25 100%);
         border-left: 6px solid {config['color']};
         border-radius: 16px;
         padding: 2em;
@@ -185,6 +185,8 @@ def get_era_styles(era):
         backdrop-filter: blur(10px);
         position: relative;
         overflow: hidden;
+        max-height: 400px;
+        overflow-y: auto;
     }}
     .era-lyrics-{era.lower().replace(' ', '-')}:hover {{
         transform: translateY(-5px);
@@ -243,10 +245,9 @@ st.markdown(f"""
     
     html, body, [class*="css"] {{
         font-family: 'Poppins', sans-serif;
-        background: #1e1e2e;
+        background: #f8f9fa;
         min-height: 100vh;
-        color: #ffffff;
-        cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="%23FF69B4" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>'), auto;
+        color: #333333;
     }}
     
     .main-header {{
@@ -255,7 +256,7 @@ st.markdown(f"""
         color: #FF69B4;
         text-align: center;
         margin-bottom: 1em;
-        text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
         font-weight: bold;
         letter-spacing: 2px;
         animation: glow 2s ease-in-out infinite alternate;
@@ -283,8 +284,8 @@ st.markdown(f"""
     }}
     
     @keyframes glow {{
-        from {{ text-shadow: 2px 2px 4px rgba(0,0,0,0.5), 0 0 20px #FF69B4; }}
-        to {{ text-shadow: 2px 2px 4px rgba(0,0,0,0.5), 0 0 30px #9370DB, 0 0 40px #FFD700; }}
+        from {{ text-shadow: 2px 2px 4px rgba(0,0,0,0.3), 0 0 20px #FF69B4; }}
+        to {{ text-shadow: 2px 2px 4px rgba(0,0,0,0.3), 0 0 30px #9370DB, 0 0 40px #FFD700; }}
     }}
     
     @keyframes bounce {{
@@ -300,12 +301,12 @@ st.markdown(f"""
     
     .quote {{
         font-family: 'Poppins', sans-serif;
-        color: #FFD700;
+        color: #8B4513;
         font-size: 1.5rem;
         text-align: center;
         margin-bottom: 2em;
-        text-shadow: 1px 1px 3px rgba(0,0,0,0.7);
-        background: rgba(255,255,255,0.1);
+        text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+        background: rgba(255,255,255,0.9);
         padding: 1.5em;
         border-radius: 20px;
         backdrop-filter: blur(10px);
@@ -313,6 +314,7 @@ st.markdown(f"""
         font-weight: 600;
         position: relative;
         overflow: hidden;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
     }}
     
     .quote::before {{
@@ -321,7 +323,7 @@ st.markdown(f"""
         left: 20px;
         top: 10px;
         font-size: 4rem;
-        color: rgba(255,215,0,0.3);
+        color: rgba(139, 69, 19, 0.3);
         font-family: serif;
     }}
     
@@ -331,7 +333,7 @@ st.markdown(f"""
         right: 20px;
         bottom: 10px;
         font-size: 4rem;
-        color: rgba(255,215,0,0.3);
+        color: rgba(139, 69, 19, 0.3);
         font-family: serif;
     }}
     
@@ -378,12 +380,12 @@ st.markdown(f"""
     }}
     
     .wordcloud-container {{
-        background: rgba(255,255,255,0.1);
+        background: rgba(255,255,255,0.9);
         border-radius: 20px;
         padding: 2em;
         margin: 2em 0;
         text-align: center;
-        box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+        box-shadow: 0 8px 32px rgba(0,0,0,0.1);
         backdrop-filter: blur(10px);
         border: 1px solid rgba(255,255,255,0.2);
         position: relative;
@@ -400,17 +402,18 @@ st.markdown(f"""
     
     .footer {{
         text-align: center;
-        color: #FFD700;
+        color: #8B4513;
         font-family: 'Poppins', sans-serif;
         font-size: 1.3rem;
         margin-top: 3em;
         padding: 2em;
-        background: rgba(255,255,255,0.1);
+        background: rgba(255,255,255,0.9);
         border-radius: 20px;
         backdrop-filter: blur(10px);
         border: 1px solid rgba(255,255,255,0.2);
         font-weight: 600;
         position: relative;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
     }}
     
     .footer::after {{
@@ -419,7 +422,7 @@ st.markdown(f"""
         bottom: 10px;
         right: 20px;
         font-size: 0.8rem;
-        color: rgba(255,215,0,0.7);
+        color: rgba(139, 69, 19, 0.7);
         font-style: italic;
     }}
     
@@ -429,7 +432,7 @@ st.markdown(f"""
         border: 2px solid rgba(147, 112, 219, 0.3);
         padding: 1em;
         font-size: 1.1rem;
-        box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
         color: #1a1a1a;
         font-family: 'Poppins', sans-serif;
     }}
@@ -440,17 +443,19 @@ st.markdown(f"""
     }}
     
     .stExpander {{
-        background: rgba(255,255,255,0.1);
+        background: rgba(255,255,255,0.9);
         border-radius: 15px;
         backdrop-filter: blur(10px);
         border: 1px solid rgba(255,255,255,0.2);
         margin: 0.5em 0;
         transition: all 0.3s ease;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
     }}
     
     .stExpander:hover {{
-        background: rgba(255,255,255,0.15);
+        background: rgba(255,255,255,1);
         transform: translateX(5px);
+        box-shadow: 0 6px 20px rgba(0,0,0,0.15);
     }}
     
     .stExpander > div > div {{
@@ -462,10 +467,10 @@ st.markdown(f"""
     }}
     
     .stSidebar {{
-        background: linear-gradient(135deg, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0.15) 100%);
+        background: linear-gradient(135deg, #e8f4fd 0%, #d1ecf1 100%);
         backdrop-filter: blur(10px);
         border-right: 1px solid rgba(255,255,255,0.3);
-        box-shadow: 2px 0 20px rgba(0,0,0,0.2);
+        box-shadow: 2px 0 20px rgba(0,0,0,0.1);
     }}
     
     .stSidebar > div > div > div {{
@@ -473,21 +478,22 @@ st.markdown(f"""
     }}
     
     .stMarkdown {{
-        color: #ffffff;
+        color: #333333;
     }}
     
     .stMarkdown h1, .stMarkdown h2, .stMarkdown h3 {{
-        color: #ffffff;
+        color: #333333;
         font-family: 'Poppins', sans-serif;
     }}
     
     .hashtags {{
-        background: rgba(255,255,255,0.1);
+        background: rgba(255,255,255,0.9);
         border-radius: 10px;
         padding: 1em;
         margin: 1em 0;
         backdrop-filter: blur(10px);
         border: 1px solid rgba(255,255,255,0.2);
+        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
     }}
     
     .hashtag {{
@@ -553,14 +559,57 @@ st.markdown(f"""
     }}
     
     .annotation {{
-        background: rgba(255,215,0,0.1);
-        border-left: 3px solid #FFD700;
+        background: rgba(139, 69, 19, 0.1);
+        border-left: 3px solid #8B4513;
         padding: 0.5em 1em;
         margin: 0.5em 0;
         border-radius: 5px;
         font-size: 0.9rem;
         font-style: italic;
-        color: #FFD700;
+        color: #8B4513;
+        font-weight: 600;
+    }}
+    
+    .facts-cloud {{
+        background: rgba(255,255,255,0.9);
+        border-radius: 15px;
+        padding: 1.5em;
+        margin: 1em 0;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        border: 1px solid rgba(255,255,255,0.2);
+    }}
+    
+    .fact-item {{
+        background: linear-gradient(45deg, #f8f9fa, #e9ecef);
+        border-radius: 10px;
+        padding: 0.8em;
+        margin: 0.5em 0;
+        border-left: 4px solid #FF69B4;
+        font-size: 0.9rem;
+        color: #495057;
+        font-weight: 500;
+    }}
+    
+    .emoji-scroll {{
+        display: flex;
+        overflow-x: auto;
+        padding: 1em;
+        background: rgba(255,255,255,0.9);
+        border-radius: 15px;
+        margin: 1em 0;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }}
+    
+    .emoji-item {{
+        font-size: 2rem;
+        margin: 0 0.5em;
+        animation: bounce 2s ease-in-out infinite;
+        cursor: pointer;
+        transition: transform 0.3s ease;
+    }}
+    
+    .emoji-item:hover {{
+        transform: scale(1.2);
     }}
     
     {all_era_styles}
@@ -605,7 +654,7 @@ def scrape_lyrics_from_url(url):
         if lyrics_elements:
             for element in lyrics_elements:
                 # Remove any "Read More" sections and other unwanted elements
-                for unwanted in element.find_all(text=re.compile(r'Read More|Contributors|Translations|한국어|Türkçe|Español|srpski|Português|Polski|Italiano|Magyar|Deutsch|Français|فارسی|简体中文|繁體中文|Русский|Беларуская|العربية|Українська|Svenska|ไทย|Česky|Català|日本語|Română', re.IGNORECASE)):
+                for unwanted in element.find_all(text=re.compile(r'Read More|Contributors|Translations|한국어|Türkçe|Español|srpski|Português|Polski|Italiano|Magyar|Deutsch|Français|فارسی|简体中文|繁體中文|Русский|Беларуская|العربية|Українська|Svenska|ไทย|Česky|Català|日本語|Română|How to Format Lyrics|Type out all lyrics|Lyrics should be broken down|Use section headers|Use italics|To learn more|transcription guide|transcribers forum|Embed|Cancel', re.IGNORECASE)):
                     if unwanted.parent:
                         unwanted.parent.decompose()
                 
@@ -616,6 +665,16 @@ def scrape_lyrics_from_url(url):
                 text = re.sub(r'Translations.*', '', text, flags=re.IGNORECASE)
                 text = re.sub(r'[0-9]+ Contributors.*', '', text, flags=re.IGNORECASE)
                 text = re.sub(r'한국어.*|Türkçe.*|Español.*|srpski.*|Português.*|Polski.*|Italiano.*|Magyar.*|Deutsch.*|Français.*|فارسی.*|简体中文.*|繁體中文.*|Русский.*|Беларуская.*|العربية.*|Українська.*|Svenska.*|ไทย.*|Česky.*|Català.*|日本語.*|Română.*', '', text, flags=re.IGNORECASE)
+                text = re.sub(r'How to Format Lyrics.*', '', text, flags=re.IGNORECASE)
+                text = re.sub(r'Type out all lyrics.*', '', text, flags=re.IGNORECASE)
+                text = re.sub(r'Lyrics should be broken down.*', '', text, flags=re.IGNORECASE)
+                text = re.sub(r'Use section headers.*', '', text, flags=re.IGNORECASE)
+                text = re.sub(r'Use italics.*', '', text, flags=re.IGNORECASE)
+                text = re.sub(r'To learn more.*', '', text, flags=re.IGNORECASE)
+                text = re.sub(r'transcription guide.*', '', text, flags=re.IGNORECASE)
+                text = re.sub(r'transcribers forum.*', '', text, flags=re.IGNORECASE)
+                text = re.sub(r'Embed.*', '', text, flags=re.IGNORECASE)
+                text = re.sub(r'Cancel.*', '', text, flags=re.IGNORECASE)
                 
                 if text.strip():
                     lyrics += text + "\n"
@@ -681,6 +740,14 @@ def main():
     st.markdown('<div class="main-header">Taylor Swift Lyrics & Word Cloud</div>', unsafe_allow_html=True)
     st.markdown(f'<div class="quote">{random.choice(TAYLOR_QUOTES)}</div>', unsafe_allow_html=True)
     
+    # Scrollable emojis
+    emojis = ["🎤", "🎵", "💜", "✨", "🦋", "💕", "🎸", "⭐", "🧣", "🏙️", "🐍", "🌈", "🌲", "❄️", "✒️", "🎭", "💎", "🌙", "🕰️", "📝"]
+    emoji_html = '<div class="emoji-scroll">'
+    for emoji in emojis:
+        emoji_html += f'<span class="emoji-item">{emoji}</span>'
+    emoji_html += '</div>'
+    st.markdown(emoji_html, unsafe_allow_html=True)
+    
     # Sidebar with era information
     st.sidebar.markdown("## 💜 About This App")
     st.sidebar.info("""
@@ -721,6 +788,15 @@ def main():
                     
                     # Display lyrics with era-specific styling
                     st.markdown(f'<div class="era-lyrics-{era_class}">' + annotated_lyrics.replace("\n", "<br>") + '</div>', unsafe_allow_html=True)
+                    
+                    # Display era facts
+                    if era in ERA_CONFIG:
+                        facts = ERA_CONFIG[era]["facts"]
+                        facts_html = '<div class="facts-cloud"><h4>📚 Fun Facts About {era} Era:</h4>'
+                        for fact in facts:
+                            facts_html += f'<div class="fact-item">💡 {fact}</div>'
+                        facts_html += '</div>'
+                        st.markdown(facts_html, unsafe_allow_html=True)
                     
                     # Generate hashtags
                     hashtags = generate_hashtags(song_title, era)
