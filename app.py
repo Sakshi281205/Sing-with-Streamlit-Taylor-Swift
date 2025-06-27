@@ -10,9 +10,26 @@ import time
 import json
 import webbrowser
 import pandas as pd
+import spotipy
+from spotipy.oauth2 import SpotifyClientCredentials
 
 # --- CONFIG ---
-GENIUS_ACCESS_TOKEN = "YQkWoMNacdeC9oX7Uf1m-qkKULs5a8mUI700Kq7ZmFrXA_NRsW6B3Gee59NjwAeQ"
+GENIUS_ACCESS_TOKEN = "your_genius_access_token_here"
+SPOTIFY_CLIENT_ID = "t6YNtBA8R5l2VuOA_dC8pGKZTWsMATafMFyJLW91ZRX2Umz6AGwtT0ZTrE-hLnjF"
+SPOTIFY_CLIENT_SECRET = "gQVv9QSFpbKgBiihiDR0INInQG3tKeoSbsVoz7GNJ2O0N9kgmzObLO25vW_aYN4H8BjdUKNYYhnDAJ6I9j8qoQ"
+SPOTIFY_REDIRECT_URI = "http://localhost"
+
+# Function to get Spotify preview URL and track link
+def get_spotify_preview_url(song_title, artist="Taylor Swift"):
+    sp = spotipy.Spotify(auth_manager=SpotifyClientCredentials(
+        client_id=SPOTIFY_CLIENT_ID,
+        client_secret=SPOTIFY_CLIENT_SECRET
+    ))
+    results = sp.search(q=f"track:{song_title} artist:{artist}", type="track", limit=1)
+    tracks = results.get("tracks", {}).get("items", [])
+    if tracks:
+        return tracks[0].get("preview_url"), tracks[0].get("external_urls", {}).get("spotify")
+    return None, None
 
 # Era-specific configuration with enhanced themes
 ERA_CONFIG = {
@@ -803,7 +820,8 @@ def get_lyrics(song_title):
         return None, "Song not found on Genius. Please check the title."
     lyrics = scrape_lyrics_from_url(url)
     if not lyrics:
-        return None, "Lyrics not found or not available for this song."
+        # Instead of failing, provide a link to the Genius page
+        return None, f"Lyrics not available, but you can <a href='{url}' target='_blank'>view them on Genius</a>."
     return lyrics, None
 
 def create_wordcloud(text, era_color):
@@ -1106,10 +1124,12 @@ def main():
             song_info = next((s for s in SONG_LIST if s["Song"].lower() == song_title.lower()), None)
             artist = song_info["Artist"] if song_info else "Taylor Swift"
             st.markdown(f"<div class='now-playing'><b>{song_title}</b> by <b>{artist}</b></div>", unsafe_allow_html=True)
-            # Spotify search button
-            spotify_url = f'https://open.spotify.com/search/{song_title.replace(' ', '%20')}%20{artist.replace(' ', '%20')}'
-            if st.button("Play on Spotify 🎧"):
-                webbrowser.open_new_tab(spotify_url)
+            # Spotify preview and link
+            preview_url, spotify_url = get_spotify_preview_url(song_title, artist)
+            if preview_url:
+                st.audio(preview_url, format="audio/mp3")
+            if spotify_url:
+                st.markdown(f"[Listen on Spotify]({spotify_url})", unsafe_allow_html=True)
             # Generate word cloud
             st.markdown("### ☁️ Word Cloud")
             img = create_wordcloud(lyrics, ERA_CONFIG[era]["color"])
@@ -1118,7 +1138,7 @@ def main():
             # Era info
             st.info(f"🎤 **{era} Era**: {ERA_CONFIG[era]['font']} font • {ERA_CONFIG[era]['color']} theme • {ERA_CONFIG[era]['animation']} animation")
         else:
-            st.error(error or "Could not find lyrics. Please check the song title.")
+            st.markdown(error or "Could not find lyrics. Please check the song title.", unsafe_allow_html=True)
     # Add JS to scroll to top after redirect or sidebar click
     st.markdown("""
     <script>
