@@ -673,81 +673,41 @@ st.markdown(f"""
     /* --- Mobile Responsive Styles --- */
     @media (max-width: 900px) {{
         section[data-testid="stSidebar"] {{
-            position: static !important;
-            width: 100% !important;
-            max-width: 100% !important;
-            min-width: 0 !important;
-            height: auto !important;
-            box-shadow: none !important;
-            margin-bottom: 1.5rem !important;
+            display: none !important;
+        }}
+        body.show-sidebar section[data-testid="stSidebar"] {{
             display: block !important;
         }}
-        .stSidebar {{
-            min-width: 0 !important;
-            max-width: 100% !important;
-            width: 100% !important;
+        .show-sidebar-btn {{
             display: block !important;
-        }}
-        div.block-container {{
-            margin-left: 0 !important;
-            max-width: 100vw !important;
-            width: 100vw !important;
-            padding: 0 1vw !important;
+            position: fixed;
+            top: 10px;
+            left: 10px;
+            z-index: 9999;
+            background: #FF69B4;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            padding: 0.7em 1.2em;
+            font-size: 1.1rem;
+            font-family: 'Poppins', sans-serif;
+            box-shadow: 0 2px 8px #ffb6d540;
+            cursor: pointer;
         }}
         .main-header {{
-            font-size: 2rem !important;
-            word-break: normal !important;
-            white-space: normal !important;
-        }}
-        .song-grid-row {{
-            flex-direction: column;
-            gap: 0.5rem;
-        }}
-        .song-grid-btn {{
-            max-width: 100% !important;
-            width: 100% !important;
-            font-size: 1.1rem !important;
-            padding: 0.7rem 0.5rem !important;
-            word-break: normal !important;
-            white-space: normal !important;
-        }}
-        .emoji-scroll {{
-            font-size: 1.5rem !important;
-            padding-bottom: 0.2rem !important;
-        }}
-        .emoji-item {{
-            font-size: 1.5rem !important;
-            margin: 0 0.3rem !important;
-        }}
-        .wordcloud-container {{
-            padding: 1em !important;
-        }}
-        .footer {{
-            font-size: 1rem !important;
-            padding: 1em !important;
+            margin-top: 3.5em !important;
         }}
     }}
-    @media (max-width: 600px) {{
-        .main-header {{
-            font-size: 1.3rem !important;
-        }}
-        .quote {{
-            font-size: 1rem !important;
-            padding: 0.7em !important;
-        }}
-        .song-grid-btn {{
-            font-size: 1rem !important;
-            padding: 0.5rem 0.3rem !important;
-        }}
-        .emoji-scroll {{
-            font-size: 1.1rem !important;
-        }}
-        .footer {{
-            font-size: 0.9rem !important;
+    @media (min-width: 901px) {{
+        .show-sidebar-btn {{
+            display: none !important;
         }}
     }}
     </style>
 """, unsafe_allow_html=True)
+
+# Add Show Sidebar button for mobile
+st.markdown('''<button class="show-sidebar-btn" onclick="document.body.classList.toggle('show-sidebar')">☰ Show Sidebar</button>''', unsafe_allow_html=True)
 
 # --- GENIUS API HELPERS ---
 def search_genius_song(song_title, artist="Taylor Swift"):
