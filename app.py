@@ -715,16 +715,14 @@ st.markdown(f"""
             box-shadow: 0 2px 8px #ffb6d540;
             cursor: pointer;
         }}
-        .main-header, .song-grid-btn, .block-container, .stApp {{
-            writing-mode: initial !important;
-            transform: none !important;
-            letter-spacing: normal !important;
+        .main-header, .song-grid-btn, .block-container, .stApp {
             display: block !important;
-            text-align: center !important;
-            line-height: 1.2 !important;
-            width: 100% !important;
-            max-width: 100vw !important;
-        }}
+            width: 100vw !important;
+            margin: 0 auto !important;
+            overflow: visible !important;
+            white-space: normal !important;
+            word-break: normal !important;
+        }
         [class^="era-lyrics-"] {{
             word-break: normal !important;
             white-space: normal !important;
