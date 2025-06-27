@@ -62,7 +62,7 @@ ERA_CONFIG = {
         "font": "Orbitron",
         "songs": ["Lavender Haze", "Anti-Hero", "Midnight Rain", "Vigilante Shit", "Bejeweled", "Karma"]
     },
-    "TTOD": {
+    "TTPD": {
         "color": "#800020",  # Deep burgundy
         "font": "Spectral",
         "songs": ["Fortnight", "The Tortured Poets Department", "The Black Dog", "But Daddy I Love Him", "So Long London"]
@@ -95,22 +95,34 @@ def get_era_styles(era):
     .era-lyrics-{era.lower().replace(' ', '-')} {{
         background: linear-gradient(135deg, {config['color']}15 0%, {config['color']}25 100%);
         border-left: 6px solid {config['color']};
-        border-radius: 12px;
-        padding: 1.5em;
-        margin: 1em 0;
-        font-size: 1.1rem;
+        border-radius: 16px;
+        padding: 2em;
+        margin: 1.5em 0;
+        font-size: 1.2rem;
         color: #2c2c2c;
         font-family: '{config['font']}', cursive;
         white-space: pre-line;
-        box-shadow: 0 4px 15px {config['color']}30;
+        box-shadow: 0 8px 32px {config['color']}40, 0 4px 16px rgba(0,0,0,0.1);
+        transform: translateY(0);
+        transition: all 0.3s ease;
+        backdrop-filter: blur(10px);
+    }}
+    .era-lyrics-{era.lower().replace(' ', '-')}:hover {{
+        transform: translateY(-5px);
+        box-shadow: 0 12px 40px {config['color']}50, 0 6px 20px rgba(0,0,0,0.15);
     }}
     .era-header-{era.lower().replace(' ', '-')} {{
         font-family: '{config['font']}', cursive;
         color: {config['color']};
-        font-size: 2rem;
+        font-size: 2.5rem;
         text-align: center;
-        margin-bottom: 1em;
-        text-shadow: 1px 1px 8px #fff;
+        margin-bottom: 1.5em;
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.3), 0 0 20px {config['color']}40;
+        background: linear-gradient(45deg, {config['color']}, {config['color']}80);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        font-weight: bold;
     }}
     """
 
@@ -122,64 +134,134 @@ all_era_styles = "\n".join([get_era_styles(era) for era in ERA_CONFIG.keys()])
 
 st.markdown(f"""
     <style>
-    @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Great+Vibes&family=Cinzel+Decorative&family=Bebas+Neue&family=Montserrat:wght@400;600&family=UnifrakturCook&family=Parisienne&family=Cormorant+Garamond&family=EB+Garamond&family=Orbitron&family=Spectral&family=Poppins:wght@400;600&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Great+Vibes&family=Cinzel+Decorative&family=Bebas+Neue&family=Montserrat:wght@400;600&family=UnifrakturCook&family=Parisienne&family=Cormorant+Garamond&family=EB+Garamond&family=Orbitron&family=Spectral&family=Poppins:wght@400;600&family=Playfair+Display:wght@700&display=swap');
     
     html, body, [class*="css"] {{
         font-family: 'Poppins', sans-serif;
-        background: linear-gradient(135deg, #f8fafc 0%, #f3e6f5 100%);
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        min-height: 100vh;
     }}
     
     .main-header {{
-        font-family: 'Dancing Script', cursive;
-        font-size: 3rem;
-        color: #FF69B4;
+        font-family: 'Playfair Display', serif;
+        font-size: 4rem;
+        background: linear-gradient(45deg, #FF69B4, #9370DB, #FFD700, #87CEEB);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
         text-align: center;
-        margin-bottom: 0.5em;
-        text-shadow: 1px 1px 8px #fff, 0 0 10px #9370DB;
+        margin-bottom: 1em;
+        text-shadow: 3px 3px 6px rgba(0,0,0,0.3);
+        font-weight: bold;
+        letter-spacing: 2px;
+        animation: glow 2s ease-in-out infinite alternate;
+    }}
+    
+    @keyframes glow {{
+        from {{ text-shadow: 3px 3px 6px rgba(0,0,0,0.3), 0 0 20px #FF69B4; }}
+        to {{ text-shadow: 3px 3px 6px rgba(0,0,0,0.3), 0 0 30px #9370DB, 0 0 40px #FFD700; }}
     }}
     
     .quote {{
         font-family: 'Dancing Script', cursive;
-        color: #9370DB;
-        font-size: 1.3rem;
+        color: #FFD700;
+        font-size: 1.5rem;
         text-align: center;
-        margin-bottom: 1.5em;
+        margin-bottom: 2em;
+        text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+        background: rgba(255,255,255,0.1);
+        padding: 1em;
+        border-radius: 20px;
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255,255,255,0.2);
     }}
     
     .stButton > button {{
-        background: linear-gradient(90deg, #FF69B4 0%, #9370DB 100%);
+        background: linear-gradient(45deg, #FF69B4, #9370DB);
         color: white;
-        border-radius: 25px;
+        border-radius: 30px;
         border: none;
-        padding: 0.7em 2em;
+        padding: 1em 2.5em;
         font-weight: bold;
-        font-size: 1.1rem;
-        margin-top: 0.5em;
-        margin-bottom: 1em;
-        box-shadow: 0 2px 8px #f3e6f5;
+        font-size: 1.2rem;
+        margin-top: 1em;
+        margin-bottom: 1.5em;
+        box-shadow: 0 8px 25px rgba(147, 112, 219, 0.4);
+        transform: translateY(0);
+        transition: all 0.3s ease;
+        text-transform: uppercase;
+        letter-spacing: 1px;
     }}
     
     .stButton > button:hover {{
-        background: linear-gradient(90deg, #9370DB 0%, #FF69B4 100%);
+        background: linear-gradient(45deg, #9370DB, #FF69B4);
         color: #fff0f6;
+        transform: translateY(-3px);
+        box-shadow: 0 12px 35px rgba(255, 105, 180, 0.5);
     }}
     
     .wordcloud-container {{
-        background: #f3e6f5;
-        border-radius: 16px;
-        padding: 1em;
-        margin: 1em 0;
+        background: rgba(255,255,255,0.1);
+        border-radius: 20px;
+        padding: 2em;
+        margin: 2em 0;
         text-align: center;
-        box-shadow: 0 2px 12px #f3e6f5;
+        box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255,255,255,0.2);
     }}
     
     .footer {{
         text-align: center;
-        color: #9370DB;
+        color: #FFD700;
         font-family: 'Dancing Script', cursive;
-        font-size: 1.1rem;
-        margin-top: 2em;
+        font-size: 1.3rem;
+        margin-top: 3em;
+        padding: 2em;
+        background: rgba(255,255,255,0.1);
+        border-radius: 20px;
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255,255,255,0.2);
+    }}
+    
+    .stTextInput > div > div > input {{
+        background: rgba(255,255,255,0.9);
+        border-radius: 15px;
+        border: 2px solid rgba(147, 112, 219, 0.3);
         padding: 1em;
+        font-size: 1.1rem;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }}
+    
+    .stTextInput > div > div > input:focus {{
+        border-color: #9370DB;
+        box-shadow: 0 0 20px rgba(147, 112, 219, 0.3);
+    }}
+    
+    .stExpander {{
+        background: rgba(255,255,255,0.1);
+        border-radius: 15px;
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255,255,255,0.2);
+        margin: 0.5em 0;
+    }}
+    
+    .stExpander > div > div {{
+        background: transparent !important;
+    }}
+    
+    .stExpander > div > div > div {{
+        background: transparent !important;
+    }}
+    
+    .stSidebar {{
+        background: rgba(255,255,255,0.1);
+        backdrop-filter: blur(10px);
+        border-right: 1px solid rgba(255,255,255,0.2);
+    }}
+    
+    .stSidebar > div > div > div {{
+        background: transparent !important;
     }}
     
     {all_era_styles}
@@ -210,23 +292,34 @@ def scrape_lyrics_from_url(url):
     soup = BeautifulSoup(page.content, "html.parser")
     lyrics = ""
     
-    # Remove any "Read More" sections
-    for read_more in soup.find_all(text=re.compile(r'Read More', re.IGNORECASE)):
-        read_more.parent.decompose()
+    # Try multiple selectors for lyrics
+    lyrics_selectors = [
+        "div[data-lyrics-container='true']",
+        "div.lyrics",
+        "div[class*='lyrics']",
+        "div[class*='Lyrics']",
+        ".SongPageGriddesktop__LyricsWrapper-sc-1px5b71-1"
+    ]
     
-    for div in soup.find_all("div", attrs={"data-lyrics-container": "true"}):
-        # Remove any "Read More" text from the lyrics
-        text = div.get_text(separator="\n")
-        text = re.sub(r'Read More.*', '', text, flags=re.IGNORECASE)
-        lyrics += text + "\n"
-    
-    if not lyrics:
-        # fallback for old layout
-        lyrics_div = soup.find("div", class_="lyrics")
-        if lyrics_div:
-            text = lyrics_div.get_text(separator="\n")
-            text = re.sub(r'Read More.*', '', text, flags=re.IGNORECASE)
-            lyrics = text
+    for selector in lyrics_selectors:
+        lyrics_elements = soup.select(selector)
+        if lyrics_elements:
+            for element in lyrics_elements:
+                # Remove any "Read More" sections and other unwanted elements
+                for unwanted in element.find_all(text=re.compile(r'Read More|Contributors|Translations|한국어|Türkçe|Español|srpski|Português|Polski|Italiano|Magyar|Deutsch|Français|فارسی|简体中文|繁體中文|Русский|Беларуская|العربية|Українська|Svenska|ไทย|Česky|Català|日本語|Română', re.IGNORECASE)):
+                    if unwanted.parent:
+                        unwanted.parent.decompose()
+                
+                text = element.get_text(separator="\n")
+                # Clean up the text
+                text = re.sub(r'Read More.*', '', text, flags=re.IGNORECASE)
+                text = re.sub(r'Contributors.*', '', text, flags=re.IGNORECASE)
+                text = re.sub(r'Translations.*', '', text, flags=re.IGNORECASE)
+                text = re.sub(r'[0-9]+ Contributors.*', '', text, flags=re.IGNORECASE)
+                text = re.sub(r'한국어.*|Türkçe.*|Español.*|srpski.*|Português.*|Polski.*|Italiano.*|Magyar.*|Deutsch.*|Français.*|فارسی.*|简体中文.*|繁體中文.*|Русский.*|Беларуская.*|العربية.*|Українська.*|Svenska.*|ไทย.*|Česky.*|Català.*|日本語.*|Română.*', '', text, flags=re.IGNORECASE)
+                
+                if text.strip():
+                    lyrics += text + "\n"
     
     return lyrics.strip() if lyrics else None
 
@@ -306,7 +399,7 @@ def main():
                     # Generate word cloud
                     st.markdown("### ☁️ Word Cloud")
                     img = create_wordcloud(lyrics, ERA_CONFIG[era]["color"])
-                    st.image(img, use_column_width=True)
+                    st.image(img, use_container_width=True)
                     
                     # Era info
                     st.info(f"🎤 **{era} Era**: {ERA_CONFIG[era]['font']} font • {ERA_CONFIG[era]['color']} theme")
