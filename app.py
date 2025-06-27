@@ -668,10 +668,9 @@ st.markdown(f"""
     
     {all_era_styles}
     /* Sidebar override for light blue */
-    section[data-testid="stSidebar"], .stSidebar, .sidebar-content {
-        background: linear-gradient(135deg, #e8f4fd 0%, #b3e0ff 100%) !important;
-        color: #111 !important;
-    }
+    section[data-testid="stSidebar"], .stSidebar, .sidebar-content{{
+        background: linear-gradient(135deg, #e8f4fd 0%, #b3e0ff 100%) !important;color: #111 !important;
+    }}
     </style>
 """, unsafe_allow_html=True)
 
