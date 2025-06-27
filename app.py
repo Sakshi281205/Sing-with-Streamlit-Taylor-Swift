@@ -791,13 +791,29 @@ def scrape_lyrics_from_url(url):
                     lyrics += text + "\n"
     return lyrics.strip() if lyrics else None
 
+def get_lyrics_lyricsovh(song_title, artist="Taylor Swift"):
+    """Get lyrics from lyrics.ovh API as fallback"""
+    try:
+        url = f"https://api.lyrics.ovh/v1/{artist}/{song_title}"
+        response = requests.get(url)
+        if response.status_code == 200:
+            data = response.json()
+            return data.get("lyrics", "")
+        return None
+    except Exception as e:
+        return None
+
 def get_lyrics(song_title):
     url = search_genius_song(song_title)
     if not url:
         return None, "Song not found on Genius. Please check the title."
     lyrics = scrape_lyrics_from_url(url)
     if not lyrics:
-        # Instead of failing, provide a link to the Genius page
+        # Try lyrics.ovh as fallback
+        lyrics = get_lyrics_lyricsovh(song_title)
+        if lyrics:
+            return lyrics, None
+        # If both fail, provide Genius link
         return None, f"Lyrics not available, but you can <a href='{url}' target='_blank'>view them on Genius</a>."
     return lyrics, None
 
