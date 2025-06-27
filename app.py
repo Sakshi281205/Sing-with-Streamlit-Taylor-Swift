@@ -665,79 +665,78 @@ st.markdown(f"""
         color: #495057;
         font-weight: 500;
     }}
-    
     {all_era_styles}
     /* Sidebar override for light blue */
     section[data-testid="stSidebar"], .stSidebar, .sidebar-content{{
         background: linear-gradient(135deg, #e8f4fd 0%, #b3e0ff 100%) !important;color: #111 !important;
     }}
     /* --- Mobile Responsive Styles --- */
-    @media (max-width: 900px) {
-        section[data-testid="stSidebar"] {
+    @media (max-width: 900px) {{
+        section[data-testid="stSidebar"] {{
             position: static !important;
             width: 100vw !important;
             max-width: 100vw !important;
             min-width: 0 !important;
             height: auto !important;
             box-shadow: none !important;
-        }
-        .stSidebar {
+        }}
+        .stSidebar {{
             min-width: 0 !important;
             max-width: 100vw !important;
             width: 100vw !important;
-        }
-        div.block-container {
+        }}
+        div.block-container {{
             margin-left: 0 !important;
             max-width: 100vw !important;
-        }
-        .main-header {
+        }}
+        .main-header {{
             font-size: 2rem !important;
-        }
-        .song-grid-row {
+        }}
+        .song-grid-row {{
             flex-direction: column;
             gap: 0.5rem;
-        }
-        .song-grid-btn {
+        }}
+        .song-grid-btn {{
             max-width: 100% !important;
             width: 100% !important;
             font-size: 1rem !important;
             padding: 0.7rem 0.5rem !important;
-        }
-        .emoji-scroll {
+        }}
+        .emoji-scroll {{
             font-size: 1.5rem !important;
             padding-bottom: 0.2rem !important;
-        }
-        .emoji-item {
+        }}
+        .emoji-item {{
             font-size: 1.5rem !important;
             margin: 0 0.3rem !important;
-        }
-        .wordcloud-container {
+        }}
+        .wordcloud-container {{
             padding: 1em !important;
-        }
-        .footer {
+        }}
+        .footer {{
             font-size: 1rem !important;
             padding: 1em !important;
-        }
-    }
-    @media (max-width: 600px) {
-        .main-header {
+        }}
+    }}
+    @media (max-width: 600px) {{
+        .main-header {{
             font-size: 1.3rem !important;
-        }
-        .quote {
+        }}
+        .quote {{
             font-size: 1rem !important;
             padding: 0.7em !important;
-        }
-        .song-grid-btn {
+        }}
+        .song-grid-btn {{
             font-size: 0.95rem !important;
             padding: 0.5rem 0.3rem !important;
-        }
-        .emoji-scroll {
+        }}
+        .emoji-scroll {{
             font-size: 1.1rem !important;
-        }
-        .footer {
+        }}
+        .footer {{
             font-size: 0.9rem !important;
-        }
-    }
+        }}
+    }}
     </style>
 """, unsafe_allow_html=True)
 
