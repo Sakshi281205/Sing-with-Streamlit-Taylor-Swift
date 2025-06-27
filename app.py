@@ -714,9 +714,9 @@ st.markdown(f"""
         }}
     }}
     .song-grid-btn {{
-        flex: 1 1 24%;
+        flex: 1 1 24%%;
         min-width: 180px;
-        max-width: 24%;
+        max-width: 24%%;
         background: #fff0f6;
         color: #111;
         border-radius: 12px;
@@ -734,13 +734,13 @@ st.markdown(f"""
         align-items: center;
         justify-content: center;
         height: 60px;
-    }
+    }}
     @media (max-width: 900px) {{
         .song-grid-btn {{
             min-width: 90vw !important;
             max-width: 100vw !important;
             width: 100vw !important;
-            flex-basis: 100% !important;
+            flex-basis: 100%% !important;
             height: 60px !important;
             font-size: 1.1rem !important;
             padding: 0.7rem 0.5rem !important;
@@ -1001,9 +1001,9 @@ def main():
         justify-content: flex-start;
     }
     .song-grid-btn {
-        flex: 1 1 24%;
+        flex: 1 1 24%%;
         min-width: 180px;
-        max-width: 24%;
+        max-width: 24%%;
         background: #fff0f6;
         color: #111;
         border-radius: 12px;
@@ -1021,7 +1021,7 @@ def main():
         align-items: center;
         justify-content: center;
         height: 60px;
-    }
+    }}
     .song-grid-btn:hover {
         background: #ffe4ec;
         transform: translateY(-2px) scale(1.03);
