@@ -9,6 +9,7 @@ import random
 import time
 import json
 import webbrowser
+import pandas as pd
 
 # --- CONFIG ---
 GENIUS_ACCESS_TOKEN = "YQkWoMNacdeC9oX7Uf1m-qkKULs5a8mUI700Kq7ZmFrXA_NRsW6B3Gee59NjwAeQ"
@@ -137,6 +138,75 @@ SWIFTIE_ANNOTATIONS = {
     "anti-hero": "Taylor's most personal song about her insecurities and self-doubt"
 }
 
+# Taylor Swift song list (expanded)
+SONG_LIST = [
+    {"Song": "Tim McGraw", "Artist": "Taylor Swift", "Writers": "Taylor Swift, Liz Rose", "Album": "Taylor Swift", "Year": 2006},
+    {"Song": "Teardrops on My Guitar", "Artist": "Taylor Swift", "Writers": "Taylor Swift, Liz Rose", "Album": "Taylor Swift", "Year": 2006},
+    {"Song": "Our Song", "Artist": "Taylor Swift", "Writers": "Taylor Swift", "Album": "Taylor Swift", "Year": 2006},
+    {"Song": "Picture to Burn", "Artist": "Taylor Swift", "Writers": "Taylor Swift, Liz Rose", "Album": "Taylor Swift", "Year": 2006},
+    {"Song": "Should've Said No", "Artist": "Taylor Swift", "Writers": "Taylor Swift", "Album": "Taylor Swift", "Year": 2006},
+    {"Song": "Love Story", "Artist": "Taylor Swift", "Writers": "Taylor Swift", "Album": "Fearless", "Year": 2008},
+    {"Song": "You Belong with Me", "Artist": "Taylor Swift", "Writers": "Taylor Swift, Liz Rose", "Album": "Fearless", "Year": 2008},
+    {"Song": "Fifteen", "Artist": "Taylor Swift", "Writers": "Taylor Swift", "Album": "Fearless", "Year": 2008},
+    {"Song": "Fearless", "Artist": "Taylor Swift", "Writers": "Taylor Swift, Liz Rose, Hillary Lindsey", "Album": "Fearless", "Year": 2008},
+    {"Song": "White Horse", "Artist": "Taylor Swift", "Writers": "Taylor Swift, Liz Rose", "Album": "Fearless", "Year": 2008},
+    {"Song": "Hey Stephen", "Artist": "Taylor Swift", "Writers": "Taylor Swift", "Album": "Fearless", "Year": 2008},
+    {"Song": "Forever & Always", "Artist": "Taylor Swift", "Writers": "Taylor Swift", "Album": "Fearless", "Year": 2008},
+    {"Song": "Change", "Artist": "Taylor Swift", "Writers": "Taylor Swift", "Album": "Fearless", "Year": 2008},
+    {"Song": "Enchanted", "Artist": "Taylor Swift", "Writers": "Taylor Swift", "Album": "Speak Now", "Year": 2010},
+    {"Song": "Mine", "Artist": "Taylor Swift", "Writers": "Taylor Swift", "Album": "Speak Now", "Year": 2010},
+    {"Song": "Back to December", "Artist": "Taylor Swift", "Writers": "Taylor Swift", "Album": "Speak Now", "Year": 2010},
+    {"Song": "Mean", "Artist": "Taylor Swift", "Writers": "Taylor Swift", "Album": "Speak Now", "Year": 2010},
+    {"Song": "Long Live", "Artist": "Taylor Swift", "Writers": "Taylor Swift", "Album": "Speak Now", "Year": 2010},
+    {"Song": "Sparks Fly", "Artist": "Taylor Swift", "Writers": "Taylor Swift", "Album": "Speak Now", "Year": 2010},
+    {"Song": "All Too Well", "Artist": "Taylor Swift", "Writers": "Taylor Swift, Liz Rose", "Album": "Red", "Year": 2012},
+    {"Song": "22", "Artist": "Taylor Swift", "Writers": "Taylor Swift, Max Martin, Shellback", "Album": "Red", "Year": 2012},
+    {"Song": "We Are Never Ever Getting Back Together", "Artist": "Taylor Swift", "Writers": "Taylor Swift, Max Martin, Shellback", "Album": "Red", "Year": 2012},
+    {"Song": "I Knew You Were Trouble", "Artist": "Taylor Swift", "Writers": "Taylor Swift, Max Martin, Shellback", "Album": "Red", "Year": 2012},
+    {"Song": "Red", "Artist": "Taylor Swift", "Writers": "Taylor Swift, Dan Wilson", "Album": "Red", "Year": 2012},
+    {"Song": "State of Grace", "Artist": "Taylor Swift", "Writers": "Taylor Swift", "Album": "Red", "Year": 2012},
+    {"Song": "Begin Again", "Artist": "Taylor Swift", "Writers": "Taylor Swift", "Album": "Red", "Year": 2012},
+    {"Song": "Blank Space", "Artist": "Taylor Swift", "Writers": "Taylor Swift, Max Martin, Shellback", "Album": "1989", "Year": 2014},
+    {"Song": "Style", "Artist": "Taylor Swift", "Writers": "Taylor Swift, Max Martin, Shellback, Ali Payami", "Album": "1989", "Year": 2014},
+    {"Song": "Shake It Off", "Artist": "Taylor Swift", "Writers": "Taylor Swift, Max Martin, Shellback", "Album": "1989", "Year": 2014},
+    {"Song": "Wildest Dreams", "Artist": "Taylor Swift", "Writers": "Taylor Swift, Max Martin, Shellback", "Album": "1989", "Year": 2014},
+    {"Song": "Bad Blood", "Artist": "Taylor Swift", "Writers": "Taylor Swift, Max Martin, Shellback", "Album": "1989", "Year": 2014},
+    {"Song": "Out of the Woods", "Artist": "Taylor Swift", "Writers": "Taylor Swift, Jack Antonoff", "Album": "1989", "Year": 2014},
+    {"Song": "Welcome to New York", "Artist": "Taylor Swift", "Writers": "Taylor Swift, Ryan Tedder", "Album": "1989", "Year": 2014},
+    {"Song": "Look What You Made Me Do", "Artist": "Taylor Swift", "Writers": "Taylor Swift, Jack Antonoff, Fred Fairbrass, Richard Fairbrass, Rob Manzoli", "Album": "Reputation", "Year": 2017},
+    {"Song": "...Ready for It?", "Artist": "Taylor Swift", "Writers": "Taylor Swift, Max Martin, Shellback, Ali Payami", "Album": "Reputation", "Year": 2017},
+    {"Song": "Delicate", "Artist": "Taylor Swift", "Writers": "Taylor Swift, Max Martin, Shellback", "Album": "Reputation", "Year": 2017},
+    {"Song": "Getaway Car", "Artist": "Taylor Swift", "Writers": "Taylor Swift, Jack Antonoff", "Album": "Reputation", "Year": 2017},
+    {"Song": "End Game", "Artist": "Taylor Swift feat. Ed Sheeran & Future", "Writers": "Taylor Swift, Max Martin, Shellback, Ed Sheeran, Nayvadius Wilburn", "Album": "Reputation", "Year": 2017},
+    {"Song": "Lover", "Artist": "Taylor Swift", "Writers": "Taylor Swift", "Album": "Lover", "Year": 2019},
+    {"Song": "Cruel Summer", "Artist": "Taylor Swift", "Writers": "Taylor Swift, Jack Antonoff, Annie Clark", "Album": "Lover", "Year": 2019},
+    {"Song": "The Man", "Artist": "Taylor Swift", "Writers": "Taylor Swift, Joel Little", "Album": "Lover", "Year": 2019},
+    {"Song": "You Need to Calm Down", "Artist": "Taylor Swift", "Writers": "Taylor Swift, Joel Little", "Album": "Lover", "Year": 2019},
+    {"Song": "The Archer", "Artist": "Taylor Swift", "Writers": "Taylor Swift, Jack Antonoff", "Album": "Lover", "Year": 2019},
+    {"Song": "Miss Americana & the Heartbreak Prince", "Artist": "Taylor Swift", "Writers": "Taylor Swift, Joel Little", "Album": "Lover", "Year": 2019},
+    {"Song": "Cardigan", "Artist": "Taylor Swift", "Writers": "Taylor Swift, Aaron Dessner", "Album": "Folklore", "Year": 2020},
+    {"Song": "The 1", "Artist": "Taylor Swift", "Writers": "Taylor Swift, Aaron Dessner", "Album": "Folklore", "Year": 2020},
+    {"Song": "Exile", "Artist": "Taylor Swift feat. Bon Iver", "Writers": "Taylor Swift, Justin Vernon, William Bowery", "Album": "Folklore", "Year": 2020},
+    {"Song": "August", "Artist": "Taylor Swift", "Writers": "Taylor Swift, Jack Antonoff", "Album": "Folklore", "Year": 2020},
+    {"Song": "Betty", "Artist": "Taylor Swift", "Writers": "Taylor Swift, William Bowery", "Album": "Folklore", "Year": 2020},
+    {"Song": "Willow", "Artist": "Taylor Swift", "Writers": "Taylor Swift, Aaron Dessner", "Album": "Evermore", "Year": 2020},
+    {"Song": "Champagne Problems", "Artist": "Taylor Swift", "Writers": "Taylor Swift, William Bowery", "Album": "Evermore", "Year": 2020},
+    {"Song": "Tolerate It", "Artist": "Taylor Swift", "Writers": "Taylor Swift, Aaron Dessner", "Album": "Evermore", "Year": 2020},
+    {"Song": "No Body, No Crime", "Artist": "Taylor Swift feat. HAIM", "Writers": "Taylor Swift", "Album": "Evermore", "Year": 2020},
+    {"Song": "Coney Island", "Artist": "Taylor Swift feat. The National", "Writers": "Taylor Swift, Aaron Dessner, Bryce Dessner, William Bowery", "Album": "Evermore", "Year": 2020},
+    {"Song": "Anti-Hero", "Artist": "Taylor Swift", "Writers": "Taylor Swift, Jack Antonoff", "Album": "Midnights", "Year": 2022},
+    {"Song": "Bejeweled", "Artist": "Taylor Swift", "Writers": "Taylor Swift, Jack Antonoff", "Album": "Midnights", "Year": 2022},
+    {"Song": "Lavender Haze", "Artist": "Taylor Swift", "Writers": "Taylor Swift, Jack Antonoff, Zoë Kravitz, Mark Spears, Jahaan Sweet, Sam Dew", "Album": "Midnights", "Year": 2022},
+    {"Song": "Karma", "Artist": "Taylor Swift", "Writers": "Taylor Swift, Jack Antonoff, Mark Spears, Jahaan Sweet, Keanu Torres", "Album": "Midnights", "Year": 2022},
+    {"Song": "Midnight Rain", "Artist": "Taylor Swift", "Writers": "Taylor Swift, Jack Antonoff", "Album": "Midnights", "Year": 2022},
+    {"Song": "Fortnight", "Artist": "Taylor Swift feat. Post Malone", "Writers": "Taylor Swift, Jack Antonoff, Austin Post", "Album": "TTPD", "Year": 2024},
+    {"Song": "The Tortured Poets Department", "Artist": "Taylor Swift", "Writers": "Taylor Swift, Jack Antonoff", "Album": "TTPD", "Year": 2024},
+    {"Song": "So Long, London", "Artist": "Taylor Swift", "Writers": "Taylor Swift, Aaron Dessner", "Album": "TTPD", "Year": 2024},
+    {"Song": "But Daddy I Love Him", "Artist": "Taylor Swift", "Writers": "Taylor Swift, Aaron Dessner", "Album": "TTPD", "Year": 2024},
+    {"Song": "The Black Dog", "Artist": "Taylor Swift", "Writers": "Taylor Swift", "Album": "TTPD", "Year": 2024},
+    # ... (add more for full discography if desired) ...
+]
+
 def get_era_for_song(song_title):
     """Determine which era a song belongs to"""
     song_title_lower = song_title.lower()
@@ -253,7 +323,7 @@ st.markdown(f"""
     
     .main-header {{
         font-family: 'Montserrat', sans-serif;
-        font-size: 4rem;
+        font-size: clamp(2rem, 6vw, 4rem);
         color: #FF69B4;
         text-align: center;
         margin-bottom: 1em;
@@ -262,6 +332,13 @@ st.markdown(f"""
         letter-spacing: 2px;
         animation: glow 2s ease-in-out infinite alternate;
         position: relative;
+        word-break: break-word;
+        width: 100%;
+        max-width: 100vw;
+        box-sizing: border-box;
+        overflow-wrap: break-word;
+        white-space: normal;
+        line-height: 1.1;
     }}
     
     .main-header::before {{
@@ -467,11 +544,9 @@ st.markdown(f"""
         background: transparent !important;
     }}
     
-    .stSidebar {{
-        background: linear-gradient(135deg, #e8f4fd 0%, #d1ecf1 100%);
-        backdrop-filter: blur(10px);
-        border-right: 1px solid rgba(255,255,255,0.3);
-        box-shadow: 2px 0 20px rgba(0,0,0,0.1);
+    section[data-testid="stSidebar"], .stSidebar {{
+        background: linear-gradient(135deg, #e8f4fd 0%, #b3e0ff 100%) !important;
+        color: #111 !important;
     }}
     
     .stSidebar > div > div > div {{
@@ -591,29 +666,14 @@ st.markdown(f"""
         font-weight: 500;
     }}
     
-    .emoji-scroll {{
-        display: flex;
-        overflow-x: auto;
-        padding: 1em;
-        background: rgba(255,255,255,0.9);
-        border-radius: 15px;
-        margin: 1em 0;
-        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-    }}
-    
-    .emoji-item {{
-        font-size: 2rem;
-        margin: 0 0.5em;
-        animation: bounce 2s ease-in-out infinite;
-        cursor: pointer;
-        transition: transform 0.3s ease;
-    }}
-    
-    .emoji-item:hover {{
-        transform: scale(1.2);
-    }}
-    
     {all_era_styles}
+    </style>
+    <style>
+    /* Sidebar override for light blue */
+    section[data-testid="stSidebar"], .stSidebar, .sidebar-content {
+        background: linear-gradient(135deg, #e8f4fd 0%, #b3e0ff 100%) !important;
+        color: #111 !important;
+    }
     </style>
 """, unsafe_allow_html=True)
 
@@ -724,19 +784,133 @@ def add_annotations_to_lyrics(lyrics, song_title):
             break
     return annotated_lyrics
 
+def clean_lyrics(text):
+    # Remove formatting instructions, empty lines, and lines with only ?
+    lines = text.split('\n')
+    cleaned = []
+    seen = set()
+    for line in lines:
+        l = line.strip()
+        if not l or l == '?' or l.lower().startswith('use italics') or l.lower().startswith('use bold') or l.lower().startswith('if you don') or l.lower().startswith('to learn more') or l.lower().startswith('lyrics should be broken down') or l.lower().startswith('type out all lyrics') or l.lower().startswith('section headers') or l.lower().startswith('visit our'):
+            continue
+        if l not in seen:
+            cleaned.append(l)
+            seen.add(l)
+    return '\n'.join(cleaned)
+
 def main():
-    # 13-second countdown loader (Taylor's lucky number)
-    if 'countdown' not in st.session_state:
-        st.session_state.countdown = 13
-    
-    if st.session_state.countdown > 0:
-        st.markdown(f'<div class="countdown">🎵 Loading in {st.session_state.countdown}... 🎵</div>', unsafe_allow_html=True)
-        st.session_state.countdown -= 1
+    # Home button at the top
+    if st.button('🏠 Home', key='home_btn'):
+        st.session_state["song_input"] = ""
+        st.session_state["auto_search"] = False
         st.rerun()
-    
+
+    st.markdown("""
+    <style>
+    html, body, [class*='css'] {
+        height: 100vh !important;
+        min-height: 100vh !important;
+        width: 100vw !important;
+        min-width: 100vw !important;
+        overflow-x: hidden;
+        background: #ffc0cb !important; /* Pink backdrop */
+        color: #111 !important; /* Black font */
+    }
+    body, .main-header, .stSidebar, .block-container, .stApp {
+        background: #ffc0cb !important;
+        color: #111 !important;
+    }
+    .main-header {
+        font-family: 'Montserrat', sans-serif;
+        font-size: clamp(2rem, 6vw, 4rem);
+        color: #111 !important;
+        text-align: center;
+        margin-bottom: 1em;
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.08);
+        font-weight: bold;
+        letter-spacing: 2px;
+        animation: glow 2s ease-in-out infinite alternate;
+        position: relative;
+        word-break: break-word;
+        width: 100%;
+        max-width: 100vw;
+        box-sizing: border-box;
+        overflow-wrap: break-word;
+        white-space: normal;
+        line-height: 1.1;
+    }
+    /* Fixed sidebar */
+    section[data-testid="stSidebar"] {
+        position: fixed !important;
+        left: 0;
+        top: 0;
+        height: 100vh !important;
+        min-height: 100vh !important;
+        z-index: 100;
+        box-shadow: 2px 0 8px rgba(0,0,0,0.04);
+        width: 340px !important;
+        max-width: 340px !important;
+        background: linear-gradient(135deg, #0a2540 0%, #111 100%) !important;
+        color: #fff !important;
+    }
+    /* Adjust main content to not go under sidebar */
+    div.block-container {
+        margin-left: 340px !important;
+        max-width: calc(100vw - 340px) !important;
+        background: #ffc0cb !important;
+        color: #111 !important;
+    }
+    .stSidebar {
+        min-width: 320px !important;
+        max-width: 400px !important;
+        width: 22vw !important;
+        background: linear-gradient(135deg, #0a2540 0%, #111 100%) !important;
+        color: #fff !important;
+        overflow-y: auto;
+    }
+    .wordcloud-img {
+        display: block;
+        max-width: 100%;
+        width: 100%;
+        height: auto;
+        margin: 0 auto;
+    }
+    .song-grid-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1.2rem;
+        margin-bottom: 0.8rem;
+        justify-content: flex-start;
+    }
+    .song-grid-btn {
+        flex: 1 1 22%;
+        min-width: 0;
+        max-width: 24%;
+        background: #fff0f6;
+        color: #111;
+        border-radius: 12px;
+        border: 1px solid #ffb6d5;
+        font-size: 1rem;
+        font-family: 'Montserrat', sans-serif;
+        margin: 0.2rem 0.2rem;
+        box-shadow: 0 2px 8px #ffb6d540;
+        transition: transform 0.1s, box-shadow 0.1s;
+        cursor: pointer;
+        padding: 0.7rem 0.5rem;
+        text-align: left;
+        white-space: normal;
+    }
+    .song-grid-btn:hover {
+        background: #ffe4ec;
+        transform: translateY(-2px) scale(1.03);
+        box-shadow: 0 4px 16px #ffb6d580;
+    }
+    </style>
+    """, unsafe_allow_html=True)
+
     st.markdown('<div class="main-header">Taylor Swift Lyrics & Word Cloud</div>', unsafe_allow_html=True)
     st.markdown(f'<div class="quote">{random.choice(TAYLOR_QUOTES)}</div>', unsafe_allow_html=True)
-    
+
     # Scrollable emojis with album links
     emoji_album_map = [
         ("🎤", "Taylor Swift Debut Album"),
@@ -766,7 +940,7 @@ def main():
         emoji_html += f'<a href="{search_url}" target="_blank" class="emoji-item">{emoji}</a>'
     emoji_html += '</div>'
     st.markdown(emoji_html, unsafe_allow_html=True)
-    
+
     # Sidebar with era information
     st.sidebar.markdown("## 💜 About This App")
     st.sidebar.info("""
@@ -776,18 +950,18 @@ def main():
     - Enjoy Swiftie quotes and word clouds
     - Interactive features and animations
     """)
-    
     st.sidebar.markdown("---")
     st.sidebar.markdown("**🎵 Popular Songs by Era:**")
-    
     # Group songs by era in sidebar
     for era, config in ERA_CONFIG.items():
         with st.sidebar.expander(f"{config['icon']} {era}"):
-            for song in config["songs"][:3]:  # Show first 3 songs per era
-                if st.button(f"🎵 {song}", key=f"sidebar_{song}"):
-                    st.session_state["song_input"] = song
+            # Get all albums for this era from SONG_LIST
+            era_songs = [song for song in SONG_LIST if era.lower() in song["Album"].lower() or song["Album"].lower() == era.lower()]
+            for song in era_songs:
+                if st.button(f"🎵 {song['Song']}", key=f"sidebar_{song['Song']}_{era}"):
+                    st.session_state["song_input"] = song["Song"]
+                    st.session_state["auto_search"] = True
                     st.rerun()
-    
     # Song input and auto-search on enter
     song_title = st.text_input("Enter a Taylor Swift song title:", key="song_input", placeholder="e.g., Love Story, Cruel Summer, ...")
     auto_search = st.session_state.get("auto_search", False)
@@ -798,28 +972,20 @@ def main():
         except Exception as e:
             lyrics, error = None, f"Error: {str(e)}"
         if lyrics:
-            # Determine era and apply styling
             era = get_era_for_song(song_title)
             era_class = era.lower().replace(' ', '-')
-            
-            # Display era header
             st.markdown(f'<div class="era-header-{era_class}">🎵 {song_title} • {era} Era</div>', unsafe_allow_html=True)
-            
             # Add annotations to lyrics
-            annotated_lyrics = add_annotations_to_lyrics(lyrics, song_title)
-            
-            # Display lyrics with era-specific styling
+            annotated_lyrics = add_annotations_to_lyrics(clean_lyrics(lyrics), song_title)
             st.markdown(f'<div class="era-lyrics-{era_class}">' + annotated_lyrics.replace("\n", "<br>") + '</div>', unsafe_allow_html=True)
-            
             # Display era facts
             if era in ERA_CONFIG:
                 facts = ERA_CONFIG[era]["facts"]
-                facts_html = '<div class="facts-cloud"><h4>📚 Fun Facts About {era} Era:</h4>'
+                facts_html = f'<div class="facts-cloud"><h4>📚 Fun Facts About {era} Era:</h4>'
                 for fact in facts:
                     facts_html += f'<div class="fact-item">💡 {fact}</div>'
                 facts_html += '</div>'
                 st.markdown(facts_html, unsafe_allow_html=True)
-            
             # Generate hashtags
             hashtags = generate_hashtags(song_title, era)
             st.markdown("### 📱 Share on Social Media")
@@ -828,37 +994,44 @@ def main():
                 hashtag_html += f'<span class="hashtag">{hashtag}</span>'
             hashtag_html += '</div>'
             st.markdown(hashtag_html, unsafe_allow_html=True)
-            
             # Vinyl record player animation
             st.markdown("### 🎵 Now Playing")
             st.markdown('<div class="vinyl-player"></div>', unsafe_allow_html=True)
-            
             # Generate word cloud
             st.markdown("### ☁️ Word Cloud")
             img = create_wordcloud(lyrics, ERA_CONFIG[era]["color"])
-            st.image(img, use_container_width=True)
-            
+            st.image(img, use_column_width=True, output_format="PNG", caption=None, clamp=False, channels="RGB")
+            st.markdown('<style>.element-container img {max-width: 100% !important; width: 100% !important; height: auto !important;}</style>', unsafe_allow_html=True)
             # Era info
             st.info(f"🎤 **{era} Era**: {ERA_CONFIG[era]['font']} font • {ERA_CONFIG[era]['color']} theme • {ERA_CONFIG[era]['animation']} animation")
         else:
             st.error(error or "Could not find lyrics. Please check the song title.")
-    else:
-        st.warning("Please enter a song title!")
-    
-    # Add JS to trigger search on Enter
+    # Add JS to scroll to top after redirect or sidebar click
     st.markdown("""
     <script>
+    window.scrollTo(0,0);
     const input = window.parent.document.querySelector('input[type="text"]');
     if(input){
       input.addEventListener('keydown', function(e){
         if(e.key === 'Enter'){
           window.parent.postMessage({isStreamlitMessage: true, type: 'streamlit:setComponentValue', key: 'auto_search', value: true}, '*');
+          window.scrollTo(0,0);
         }
       });
     }
     </script>
     """, unsafe_allow_html=True)
-    
+    # Song list below main content
+    st.markdown("### 📜 Taylor Swift Song List")
+    # Display all songs in 4 columns, no search box
+    for i in range(0, len(SONG_LIST), 4):
+        cols = st.columns(4)
+        for j, song in enumerate(SONG_LIST[i:i+4]):
+            btn_label = f"🎵 {song['Song']} ({song['Album']}, {song['Year']})"
+            if cols[j].button(btn_label, key=f"songlist_{song['Song']}_{song['Album']}"):
+                st.session_state["song_input"] = song["Song"]
+                st.session_state["auto_search"] = True
+                st.rerun()
     st.markdown('<div class="footer">🎵 Built with ❤️ for Swifties | Powered by Streamlit & Genius API</div>', unsafe_allow_html=True)
 
 if __name__ == "__main__":
