@@ -713,7 +713,7 @@ st.markdown(f"""
             display: none !important;
         }}
     }}
-    .song-grid-btn {
+    .song-grid-btn {{
         flex: 1 1 24%;
         min-width: 180px;
         max-width: 24%;
