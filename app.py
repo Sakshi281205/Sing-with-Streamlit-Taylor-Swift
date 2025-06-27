@@ -699,41 +699,13 @@ st.markdown(f"""
         body.show-sidebar section[data-testid="stSidebar"] {{
             display: block !important;
         }}
-        .show-sidebar-btn {{
-            display: block !important;
-            position: fixed;
-            top: 10px;
-            left: 10px;
-            z-index: 9999;
-            background: #FF69B4;
-            color: #fff;
-            border: none;
-            border-radius: 8px;
-            padding: 0.7em 1.2em;
-            font-size: 1.1rem;
-            font-family: 'Poppins', sans-serif;
-            box-shadow: 0 2px 8px #ffb6d540;
-            cursor: pointer;
-        }}
-        .main-header, .song-grid-btn, .block-container, .stApp {
+        .main-header, .song-grid-btn, .block-container, .stApp {{
             display: block !important;
             width: 100vw !important;
             margin: 0 auto !important;
             overflow: visible !important;
             white-space: normal !important;
             word-break: normal !important;
-        }
-        [class^="era-lyrics-"] {{
-            word-break: normal !important;
-            white-space: normal !important;
-            overflow-wrap: normal !important;
-            width: 100% !important;
-            max-width: 100vw !important;
-            font-size: 1.1rem !important;
-            padding: 1em !important;
-        }}
-        .main-header {{
-            margin-top: 3.5em !important;
         }}
     }}
     @media (min-width: 901px) {{
