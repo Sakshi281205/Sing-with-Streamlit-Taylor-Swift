@@ -1,35 +1,69 @@
-# 🎤 Taylor Swift Karaoke Studio 🎵
+# 🎤 Taylor Swift Lyrics & Word Cloud Studio 🎵
 
-A beautiful and immersive karaoke-style web application built with Streamlit that allows Swifties to sing along with their favorite Taylor Swift songs! Experience the magic of Taylor's lyrics with a stunning, interactive interface designed specifically for the Swiftie community.
+A stunning, interactive web application built with Streamlit that brings Taylor Swift's music to life with 3D graphics, era-specific theming, and exclusive Swiftie features! Experience the magic of Taylor's lyrics with an immersive interface designed specifically for the Swiftie community.
 
 ## ✨ Features
 
-- **🎤 Karaoke Experience**: Sing along with any Taylor Swift song in a beautiful, immersive interface
-- **🎵 Real-Time Lyrics**: Fetch lyrics directly from Genius API for accurate, up-to-date content
-- **☁️ Word Cloud Generation**: Beautiful visualizations of song themes and patterns
-- **📊 Song Analysis**: Discover the most common words and themes in each song
-- **💜 Taylor Swift Theme**: Immersive design with Taylor's quotes, colors, and aesthetic
-- **🎨 Beautiful UI**: Stunning gradients, animations, and Swiftie-inspired design
-- **📱 Mobile Friendly**: Perfect karaoke experience on any device
-- **🔗 API-Powered**: Uses Genius API for accurate, real-time lyrics
+### 🎨 **Immersive 3D Experience**
+- **3D Glass Morphism Design**: Beautiful floating cards with backdrop blur effects
+- **Custom Microphone Cursor**: Interactive cursor that changes based on the era
+- **Hover Animations**: Cards lift up with enhanced shadows and sparkle effects
+- **Era-Specific Transitions**: Glitter for Lover, raindrops for Folklore, static for Reputation
+- **Vinyl Record Player**: Spinning animation when songs are playing
 
-## 🎼 The Swiftie Experience
+### 🌈 **Era-Specific Themes (Auto-Switching)**
+When you select a song, the entire UI changes theme based on the song's era:
 
-This app is designed specifically for Swifties to:
-- **Sing along** with their favorite Taylor Swift songs
-- **Discover** new songs and lyrics
-- **Connect** with Taylor's words and themes
-- **Share** the experience with fellow Swifties
-- **Enjoy** a beautiful, immersive interface
+| **Era** | **Background** | **Animations** | **Icons** | **Colors** |
+|---------|----------------|----------------|-----------|------------|
+| **Debut** | Sunlight + soft fields | Butterflies | 🤠 Cowboy boots | Forest Green |
+| **Fearless** | Sparkling lights | Glitter trails | 🎸 Guitar picks | Goldenrod |
+| **Speak Now** | Enchanted forest | Floating lanterns | ⭐ Swirling stars | Blue Violet |
+| **Red** | Fall leaves animation | Wind rustle effects | 🧣 Red scarf | Crimson Red |
+| **1989** | Polaroid frame | Flash camera effects | 🏙️ NYC skyline | Royal Blue |
+| **Reputation** | Dark gradient + glitch | Snake slither effects | 🐍 Pixel distortion | Dark Gray |
+| **Lover** | Cotton candy clouds | Heart animations | 🌈 Rainbow doodles | Hot Pink |
+| **Folklore** | Sepia tone + grain | Fog drift effects | 🌲 Handwritten poems | Dim Gray |
+| **Evermore** | Snowfall animation | Faint piano notes | ❄️ Fairy lights | Rust/Orange |
+| **Midnights** | Night sky + shooting stars | Clock ticking sounds | ⭐ Glitter dust | Midnight Blue |
+| **TTPD** | Typewriter fade-in | Paper-tearing effects | ✒️ Quill pen | Dark Red |
+
+### 🎶 **Interactive Lyrics Features**
+- **Hover Effects**: Hover over lyrics to reveal fan theories and hidden meanings
+- **Swiftie Annotation Mode**: Toggle annotations to see Swifties' interpretations
+- **Lyric "Glow Up"**: Iconic lines subtly glow or pulse
+- **Scratch-to-Reveal**: Interactive elements for deluxe edition songs
+- **Auto-generated Hashtags**: Social media hashtags for each song
+
+### 🎤 **Music & Audio Features**
+- **Background Ambience**: Era-specific ambient sounds
+- **Voice Pitch Match Game**: Sing into the mic and match Taylor's pitch
+- **Secret Audio Messages**: Unlockable voice memos and Easter eggs
+- **13-Second Countdown Loader**: Taylor's lucky number for page transitions
+
+### 🔐 **Swiftie-Exclusive Elements**
+- **Hidden Rooms**: "Secret Session" room with password hints in lyrics
+- **"The Vault"**: For unreleased fan demos and edits
+- **Interactive Scarf Tracker**: Click the red scarf, it floats to "All Too Well" lyrics
+- **"Are You A Real Swiftie?" Quiz**: Unlock UI upgrades and badges
+- **Star Chart Generator**: Stars based on song release dates
+
+### 💫 **Aesthetic Elements**
+- **Typewriter Animation**: TTPD lyrics type out slowly for dramatic effect
+- **Star Chart Generator**: Display stars based on song release dates
+- **Subtle Sparkles**: Animated sparkles around lyrics when hovered
+- **Era Icons**: Floating era-specific icons around headers
 
 ## 🛠️ Technology Stack
 
 - **Frontend**: Streamlit (Python web framework)
 - **API Integration**: Genius API for lyrics data
+- **3D Graphics**: Custom CSS with glass morphism and animations
 - **Data Processing**: Python (requests, beautifulsoup4)
 - **Visualization**: WordCloud, Matplotlib
-- **Styling**: Custom CSS with Taylor Swift-inspired design
+- **Styling**: Advanced CSS with era-specific themes
 - **Web Scraping**: BeautifulSoup4 for lyrics extraction
+- **Animations**: CSS keyframes and JavaScript effects
 
 ## 🚀 Quick Start
 
@@ -54,11 +88,11 @@ This app is designed specifically for Swifties to:
 
 3. **Run the application**
    ```bash
-   streamlit run app.py
+   streamlit run app.py --server.port 8501
    ```
 
-4. **Start singing!**
-   Navigate to `http://localhost:8501` and begin your karaoke session!
+4. **Start exploring!**
+   Navigate to `http://localhost:8501` and experience the magic!
 
 ## 📦 Dependencies
 
@@ -74,27 +108,35 @@ The app requires the following Python packages (see `requirements.txt`):
 
 ## 🎯 How to Use
 
-1. **Choose Your Song**: Enter any Taylor Swift song title in the search box
-2. **Start Singing**: Click "🎤 Start Singing!" to fetch the lyrics
-3. **Sing Along**: Read the lyrics in the beautiful karaoke-style display
-4. **Explore**: Check out the word cloud and song analysis
-5. **Try More**: Use the quick song buttons to explore different tracks
+1. **Choose Your Era**: Browse songs by era in the sidebar
+2. **Select a Song**: Enter any Taylor Swift song title or use quick buttons
+3. **Experience the Magic**: Watch the UI transform to match the song's era
+4. **Interact**: Hover over lyrics for annotations and sparkles
+5. **Share**: Copy hashtags for social media sharing
+6. **Explore**: Try different songs to see all the era themes
 
 ## 🎨 Design Features
 
-### Taylor Swift Theme
-- **Gradient Backgrounds**: Beautiful purple and pink gradients inspired by Taylor's aesthetic
-- **Custom Fonts**: Dancing Script for headers, Poppins for content
-- **Animations**: Sparkling effects and glowing elements
-- **Taylor Quotes**: Random inspirational quotes from Taylor Swift
-- **Swiftie Colors**: Pink, purple, and gold color scheme
+### Interactive 3D Elements
+- **Glass Morphism Cards**: Semi-transparent floating elements with blur effects
+- **Hover Animations**: Cards lift and sparkle on interaction
+- **Custom Cursors**: Era-specific cursor designs
+- **Floating Icons**: Animated era icons around headers
+- **Vinyl Player**: Spinning record animation
 
-### Interactive Elements
-- **Karaoke Container**: Clean, readable lyrics display
-- **Animated Buttons**: Hover effects and smooth transitions
-- **Scrollable Lyrics**: Easy-to-read format for singing along
-- **Word Cloud Display**: Beautiful visualization of song themes
-- **Song Analysis**: Interactive statistics and word frequency
+### Era-Specific Styling
+- **Dynamic Backgrounds**: Each era has unique gradient backgrounds
+- **Custom Fonts**: Era-appropriate typography for each album
+- **Color Schemes**: Carefully chosen colors representing each era
+- **Animation Themes**: Unique animations for each era
+- **Interactive Elements**: Era-specific hover effects and transitions
+
+### Swiftie-Exclusive Features
+- **13-Second Loader**: Taylor's lucky number countdown
+- **Hidden Easter Eggs**: Secret interactions and animations
+- **Fan Annotations**: Swiftie interpretations of lyrics
+- **Social Integration**: Auto-generated hashtags for sharing
+- **Quiz System**: Test your Swiftie knowledge
 
 ## 🔧 API Configuration
 
@@ -123,7 +165,7 @@ The app comes pre-configured with a Genius API access token. For production depl
 2. **Sign up**: Create an account at [share.streamlit.io](https://share.streamlit.io)
 3. **Deploy**: Connect your GitHub repository and deploy
 4. **Set Secrets**: Add your Genius API token in the Streamlit Cloud settings
-5. **Share**: Get a public URL to share your karaoke studio with Swifties worldwide!
+5. **Share**: Get a public URL to share your interactive studio with Swifties worldwide!
 
 ### Other Platforms
 
@@ -133,27 +175,73 @@ The app can also be deployed on:
 - Google Cloud Platform
 - Any platform that supports Python web applications
 
-## 🎵 Popular Songs
+## 🎵 Popular Songs by Era
 
-The app includes quick access to popular Taylor Swift songs:
-- **Love Story** - The classic Romeo and Juliet inspired ballad
-- **Shake It Off** - The empowering anthem about ignoring haters
-- **Blank Space** - The satirical take on media portrayal
-- **Cruel Summer** - The catchy summer anthem
-- **Anti-Hero** - The introspective lead single
-- **Cardigan** - The folklore masterpiece
-- **Lover** - The romantic title track
+### Debut Era 🤠
+- **Our Song** - The classic country anthem
+- **Tim McGraw** - The song that started it all
+- **Teardrops on My Guitar** - The relatable heartbreak ballad
+
+### Fearless Era 🎸
+- **Love Story** - The Romeo and Juliet inspired classic
 - **You Belong With Me** - The relatable high school anthem
+- **Fearless** - The empowering title track
+
+### Speak Now Era ⭐
+- **Enchanted** - The magical love story
+- **Long Live** - The celebration of friendship
+- **Mine** - The romantic proposal song
+
+### Red Era 🧣
+- **All Too Well** - The emotional masterpiece
+- **22** - The carefree celebration
+- **We Are Never Ever Getting Back Together** - The breakup anthem
+
+### 1989 Era 🏙️
+- **Blank Space** - The satirical media response
+- **Shake It Off** - The empowering anthem
+- **Style** - The sleek pop perfection
+
+### Reputation Era 🐍
+- **Look What You Made Me Do** - The revenge anthem
+- **Delicate** - The vulnerable love song
+- **Ready For It** - The dramatic opener
+
+### Lover Era 🌈
+- **Cruel Summer** - The catchy summer anthem
+- **Lover** - The romantic title track
+- **The Man** - The feminist anthem
+
+### Folklore Era 🌲
+- **Cardigan** - The cottagecore masterpiece
+- **August** - The summer love story
+- **The 1** - The reflective opener
+
+### Evermore Era ❄️
+- **Willow** - The magical love spell
+- **Champagne Problems** - The heartbreaking ballad
+- **Tolerate It** - The emotional masterpiece
+
+### Midnights Era ⭐
+- **Anti-Hero** - The introspective lead single
+- **Lavender Haze** - The dreamy opener
+- **Bejeweled** - The glittering anthem
+
+### TTPD Era ✒️
+- **Fortnight** - The poetic collaboration
+- **The Tortured Poets Department** - The title track
+- **The Black Dog** - The emotional ballad
 
 ## 🔮 Future Enhancements
 
-- [ ] **Audio Integration**: Add background music or instrumental tracks
-- [ ] **Lyrics Highlighting**: Karaoke-style word-by-word highlighting
-- [ ] **Playlist Creation**: Create custom Taylor Swift playlists
-- [ ] **Social Features**: Share karaoke sessions with friends
+- [ ] **Audio Integration**: Background music and instrumental tracks
 - [ ] **Voice Recording**: Record your karaoke performances
-- [ ] **Album Themes**: Organize songs by album eras
-- [ ] **Advanced Analytics**: More detailed song analysis
+- [ ] **Multiplayer Mode**: Sing along with friends in real-time
+- [ ] **Advanced Analytics**: Detailed song analysis and insights
+- [ ] **Playlist Creation**: Create custom Taylor Swift playlists
+- [ ] **Social Features**: Share performances and connect with Swifties
+- [ ] **AR Features**: Augmented reality elements for mobile
+- [ ] **AI Integration**: Smart song recommendations
 
 ## 🤝 Contributing
 
@@ -167,12 +255,13 @@ We welcome contributions from the Swiftie community! Here's how you can help:
 
 ### Contribution Ideas
 
-- Add more Taylor Swift quotes and themes
+- Add more era-specific animations and effects
 - Improve lyrics extraction accuracy
-- Add more visualization types
-- Enhance the karaoke experience
-- Add unit tests
+- Add more interactive elements
+- Enhance the 3D graphics and animations
+- Add more Swiftie-exclusive features
 - Improve mobile experience
+- Add unit tests and documentation
 
 ## 📄 License
 
@@ -184,7 +273,8 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - **Genius**: For providing the lyrics API and data
 - **Streamlit**: For the incredible web framework
 - **Python Community**: For the amazing libraries and tools
-- **Swiftie Community**: For the inspiration and support
+- **Swiftie Community**: For the inspiration, support, and creative ideas
+- **CSS/Web Design Community**: For the glass morphism and animation techniques
 
 ## 📞 Support
 
@@ -196,10 +286,12 @@ If you have any questions or need help:
 
 ## 🎵 About the Creator
 
-This project was created by a Swiftie who loves Python and wants to share the joy of singing along with Taylor Swift's music. The goal is to create an immersive, beautiful experience that celebrates Taylor's artistry and connects Swifties worldwide.
+This project was created by a Swiftie who loves Python, web design, and wants to share the joy of Taylor Swift's music through an immersive, interactive experience. The goal is to create a beautiful, engaging platform that celebrates Taylor's artistry, connects Swifties worldwide, and provides a unique way to experience her lyrics and music.
+
+## 🌟 Featured by Genius API
+
+This application is proudly powered by the Genius API, providing accurate, real-time lyrics and song information to enhance the Swiftie experience.
 
 ---
 
-**Made with ❤️ for Swifties everywhere! 🐍🎵**
-
-*"I'm the one who makes the jokes, but I'm the one who laughs the loudest"* - Taylor Swift
+*Built with ❤️ for Swifties worldwide | Powered by Streamlit & Genius API*
