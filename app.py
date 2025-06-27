@@ -698,6 +698,9 @@ def scrape_lyrics_from_url(url):
         return None
     soup = BeautifulSoup(page.content, "html.parser")
     lyrics = ""
+    # Remove language links and navigation
+    for nav in soup.find_all(['a', 'span', 'div'], string=re.compile(r'^(Afrikaans|Slovenščina|Español|Français|Deutsch|Italiano|Magyar|Polski|Português|Русский|Svenska|Türkçe|Українська|日本語|한국어|ไทย|Română|Česky|Català|فارسی|Беларуская|العربية|简体中文|繁體中文)$', re.IGNORECASE)):
+        nav.decompose()
     # Try multiple selectors for lyrics
     lyrics_selectors = [
         "div[data-lyrics-container='true']",
@@ -711,7 +714,7 @@ def scrape_lyrics_from_url(url):
         if lyrics_elements:
             for element in lyrics_elements:
                 # Remove any unwanted elements
-                for unwanted in element.find_all(text=re.compile(r'Read More|Contributors|Translations|한국어|Türkçe|Español|srpski|Português|Polski|Italiano|Magyar|Deutsch|Français|فارسی|简体中文|繁體中文|Русский|Беларуская|العربية|Українська|Svenska|ไทย|Česky|Català|日本語|Română|How to Format Lyrics|Type out all lyrics|Lyrics should be broken down|Use section headers|Use italics|To learn more|transcription guide|transcribers forum|Embed|Cancel', re.IGNORECASE)):
+                for unwanted in element.find_all(text=re.compile(r'Read More|Contributors|Translations|How to Format Lyrics|Type out all lyrics|Lyrics should be broken down|Use section headers|Use italics|To learn more|transcription guide|transcribers forum|Embed|Cancel', re.IGNORECASE)):
                     if isinstance(unwanted, Tag) and unwanted.parent:
                         unwanted.parent.decompose()
                 text = element.get_text(separator="\n")
@@ -720,7 +723,7 @@ def scrape_lyrics_from_url(url):
                 text = re.sub(r'Contributors.*', '', text, flags=re.IGNORECASE)
                 text = re.sub(r'Translations.*', '', text, flags=re.IGNORECASE)
                 text = re.sub(r'[0-9]+ Contributors.*', '', text, flags=re.IGNORECASE)
-                text = re.sub(r'한국어.*|Türkçe.*|Español.*|srpski.*|Português.*|Polski.*|Italiano.*|Magyar.*|Deutsch.*|Français.*|فارسی.*|简体中文.*|繁體中文.*|Русский.*|Беларуская.*|العربية.*|Українська.*|Svenska.*|ไทย.*|Česky.*|Català.*|日本語.*|Română.*', '', text, flags=re.IGNORECASE)
+                text = re.sub(r'^(Afrikaans|Slovenščina|Español|Français|Deutsch|Italiano|Magyar|Polski|Português|Русский|Svenska|Türkçe|Українська|日本語|한국어|ไทย|Română|Česky|Català|فارسی|Беларуская|العربية|简体中文|繁體中文)$', '', text, flags=re.MULTILINE)
                 text = re.sub(r'How to Format Lyrics.*', '', text, flags=re.IGNORECASE)
                 text = re.sub(r'Type out all lyrics.*', '', text, flags=re.IGNORECASE)
                 text = re.sub(r'Lyrics should be broken down.*', '', text, flags=re.IGNORECASE)
@@ -733,6 +736,16 @@ def scrape_lyrics_from_url(url):
                 text = re.sub(r'Cancel.*', '', text, flags=re.IGNORECASE)
                 if text.strip():
                     lyrics += text + "\n"
+    # Try to get the full description if present
+    desc = soup.find('div', class_=re.compile(r'RichText__Root'))
+    if desc:
+        desc_text = desc.get_text(separator=" ").strip()
+        if desc_text.endswith('...'):
+            # Try to find a sibling or parent with more text
+            more = desc.find_next_sibling('div')
+            if more:
+                desc_text += ' ' + more.get_text(separator=" ").strip()
+        lyrics = desc_text + "\n" + lyrics
     return lyrics.strip() if lyrics else None
 
 def get_lyrics(song_title):
@@ -768,32 +781,52 @@ def create_wordcloud(text, era_color):
     return buf
 
 def add_annotations_to_lyrics(lyrics, song_title):
-    """Add Swiftie annotations to lyrics"""
+    """Add Swiftie annotations to lyrics, but only once per annotation per song."""
     annotated_lyrics = lyrics
     for key, annotation in SWIFTIE_ANNOTATIONS.items():
         if key in song_title.lower():
             # Find lines that might have annotations
             lines = lyrics.split('\n')
+            annotation_added = False
             for i, line in enumerate(lines):
-                if any(word in line.lower() for word in key.split()):
+                if not annotation_added and any(word in line.lower() for word in key.split()):
                     lines[i] = f"{line}\n<div class='annotation'>💜 Swiftie Note: {annotation}</div>"
+                    annotation_added = True
             annotated_lyrics = '\n'.join(lines)
             break
     return annotated_lyrics
 
 def clean_lyrics(text):
-    # Remove formatting instructions, empty lines, and lines with only ?
+    # Remove formatting instructions, empty lines, lines with only ?, language links, numbers, and unwanted phrases
     lines = text.split('\n')
     cleaned = []
     seen = set()
+    language_pattern = re.compile(r'^(Afrikaans|Slovenščina|Español|Français|Deutsch|Italiano|Magyar|Polski|Português|Русский|Svenska|Türkçe|Українська|日本語|한국어|ไทย|Română|Česky|Català|فارسی|Беларуская|العربية|简体中文|繁體中文)$', re.IGNORECASE)
+    unwanted_patterns = [
+        re.compile(r'^\d+$'),  # lines that are just numbers
+        re.compile(r'^You might also like', re.IGNORECASE),
+        re.compile(r'^Use italics', re.IGNORECASE),
+        re.compile(r'^Use bold', re.IGNORECASE),
+        re.compile(r'^or visit our', re.IGNORECASE),
+        re.compile(r'^lyric\)?$', re.IGNORECASE),
+        re.compile(r'^\(lyric\)?$', re.IGNORECASE),
+        re.compile(r'^\)$', re.IGNORECASE),
+        re.compile(r'^\($', re.IGNORECASE),
+    ]
     for line in lines:
         l = line.strip()
-        if not l or l == '?' or l.lower().startswith('use italics') or l.lower().startswith('use bold') or l.lower().startswith('if you don') or l.lower().startswith('to learn more') or l.lower().startswith('lyrics should be broken down') or l.lower().startswith('type out all lyrics') or l.lower().startswith('section headers') or l.lower().startswith('visit our'):
+        if not l or l == '?' or l.lower().startswith('use italics') or l.lower().startswith('use bold') or l.lower().startswith('if you don') or l.lower().startswith('to learn more') or l.lower().startswith('lyrics should be broken down') or l.lower().startswith('type out all lyrics') or l.lower().startswith('section headers') or l.lower().startswith('visit our') or language_pattern.match(l):
+            continue
+        if any(p.match(l) for p in unwanted_patterns):
             continue
         if l not in seen:
             cleaned.append(l)
             seen.add(l)
     return '\n'.join(cleaned)
+
+def set_song_input(song):
+    st.session_state["song_input"] = song
+    st.session_state["auto_search"] = True
 
 def main():
     # Home button at the top
@@ -978,9 +1011,7 @@ def main():
             # Get all albums for this era from SONG_LIST
             era_songs = [song for song in SONG_LIST if era.lower() in song["Album"].lower() or song["Album"].lower() == era.lower()]
             for song in era_songs:
-                if st.button(f"🎵 {song['Song']}", key=f"sidebar_{song['Song']}_{era}"):
-                    st.session_state["song_input"] = song["Song"]
-                    st.session_state["auto_search"] = True
+                if st.button(f"🎵 {song['Song']}", key=f"sidebar_{song['Song']}_{era}", on_click=set_song_input, args=(song["Song"],)):
                     st.rerun()
     # Song input and auto-search on enter
     song_title = st.text_input("Enter a Taylor Swift song title:", key="song_input", placeholder="e.g., Love Story, Cruel Summer, ...")
@@ -998,6 +1029,12 @@ def main():
             # Add annotations to lyrics
             annotated_lyrics = add_annotations_to_lyrics(clean_lyrics(lyrics), song_title)
             st.markdown(f'<div class="era-lyrics-{era_class}">' + annotated_lyrics.replace("\n", "<br>") + '</div>', unsafe_allow_html=True)
+            # Inject JS to scroll to top after lyrics are displayed
+            st.markdown("""
+            <script>
+            window.scrollTo({top: 0, behavior: 'smooth'});
+            </script>
+            """, unsafe_allow_html=True)
             # Display era facts
             if era in ERA_CONFIG:
                 facts = ERA_CONFIG[era]["facts"]
@@ -1014,9 +1051,16 @@ def main():
                 hashtag_html += f'<span class="hashtag">{hashtag}</span>'
             hashtag_html += '</div>'
             st.markdown(hashtag_html, unsafe_allow_html=True)
-            # Vinyl record player animation
+            # Vinyl record player animation and Now Playing info
             st.markdown("### 🎵 Now Playing")
-            st.markdown('<div class="vinyl-player"></div>', unsafe_allow_html=True)
+            # Find artist for the song
+            song_info = next((s for s in SONG_LIST if s["Song"].lower() == song_title.lower()), None)
+            artist = song_info["Artist"] if song_info else "Taylor Swift"
+            st.markdown(f"<div class='now-playing'><b>{song_title}</b> by <b>{artist}</b></div>", unsafe_allow_html=True)
+            # Spotify search button
+            spotify_url = f'https://open.spotify.com/search/{song_title.replace(' ', '%20')}%20{artist.replace(' ', '%20')}'
+            if st.button("Play on Spotify 🎧"):
+                webbrowser.open_new_tab(spotify_url)
             # Generate word cloud
             st.markdown("### ☁️ Word Cloud")
             img = create_wordcloud(lyrics, ERA_CONFIG[era]["color"])
@@ -1048,9 +1092,7 @@ def main():
         cols = st.columns(4)
         for j, song in enumerate(SONG_LIST[i:i+4]):
             btn_label = f"🎵 {song['Song']} ({song['Album']}, {song['Year']})"
-            if cols[j].button(btn_label, key=f"songlist_{song['Song']}_{song['Album']}"):
-                st.session_state["song_input"] = song["Song"]
-                st.session_state["auto_search"] = True
+            if cols[j].button(btn_label, key=f"songlist_{song['Song']}_{song['Album']}", on_click=set_song_input, args=(song["Song"],)):
                 st.rerun()
     st.markdown('<div class="footer">🎵 Built with ❤️ for Swifties | Powered by Streamlit & Genius API</div>', unsafe_allow_html=True)
 
