@@ -4,10 +4,11 @@ import re
 from wordcloud import WordCloud
 import matplotlib.pyplot as plt
 import io
-from bs4 import BeautifulSoup
+from bs4 import BeautifulSoup, Tag
 import random
 import time
 import json
+import webbrowser
 
 # --- CONFIG ---
 GENIUS_ACCESS_TOKEN = "YQkWoMNacdeC9oX7Uf1m-qkKULs5a8mUI700Kq7ZmFrXA_NRsW6B3Gee59NjwAeQ"
@@ -618,6 +619,7 @@ st.markdown(f"""
 
 # --- GENIUS API HELPERS ---
 def search_genius_song(song_title, artist="Taylor Swift"):
+    # Make search case-insensitive
     url = "https://api.genius.com/search"
     headers = {"Authorization": f"Bearer {GENIUS_ACCESS_TOKEN}"}
     params = {"q": f"{song_title} {artist}"}
@@ -639,7 +641,6 @@ def scrape_lyrics_from_url(url):
         return None
     soup = BeautifulSoup(page.content, "html.parser")
     lyrics = ""
-    
     # Try multiple selectors for lyrics
     lyrics_selectors = [
         "div[data-lyrics-container='true']",
@@ -648,16 +649,14 @@ def scrape_lyrics_from_url(url):
         "div[class*='Lyrics']",
         ".SongPageGriddesktop__LyricsWrapper-sc-1px5b71-1"
     ]
-    
     for selector in lyrics_selectors:
         lyrics_elements = soup.select(selector)
         if lyrics_elements:
             for element in lyrics_elements:
-                # Remove any "Read More" sections and other unwanted elements
+                # Remove any unwanted elements
                 for unwanted in element.find_all(text=re.compile(r'Read More|Contributors|Translations|한국어|Türkçe|Español|srpski|Português|Polski|Italiano|Magyar|Deutsch|Français|فارسی|简体中文|繁體中文|Русский|Беларуская|العربية|Українська|Svenska|ไทย|Česky|Català|日本語|Română|How to Format Lyrics|Type out all lyrics|Lyrics should be broken down|Use section headers|Use italics|To learn more|transcription guide|transcribers forum|Embed|Cancel', re.IGNORECASE)):
-                    if unwanted.parent:
+                    if isinstance(unwanted, Tag) and unwanted.parent:
                         unwanted.parent.decompose()
-                
                 text = element.get_text(separator="\n")
                 # Clean up the text
                 text = re.sub(r'Read More.*', '', text, flags=re.IGNORECASE)
@@ -675,10 +674,8 @@ def scrape_lyrics_from_url(url):
                 text = re.sub(r'transcribers forum.*', '', text, flags=re.IGNORECASE)
                 text = re.sub(r'Embed.*', '', text, flags=re.IGNORECASE)
                 text = re.sub(r'Cancel.*', '', text, flags=re.IGNORECASE)
-                
                 if text.strip():
                     lyrics += text + "\n"
-    
     return lyrics.strip() if lyrics else None
 
 def get_lyrics(song_title):
@@ -740,11 +737,33 @@ def main():
     st.markdown('<div class="main-header">Taylor Swift Lyrics & Word Cloud</div>', unsafe_allow_html=True)
     st.markdown(f'<div class="quote">{random.choice(TAYLOR_QUOTES)}</div>', unsafe_allow_html=True)
     
-    # Scrollable emojis
-    emojis = ["🎤", "🎵", "💜", "✨", "🦋", "💕", "🎸", "⭐", "🧣", "🏙️", "🐍", "🌈", "🌲", "❄️", "✒️", "🎭", "💎", "🌙", "🕰️", "📝"]
+    # Scrollable emojis with album links
+    emoji_album_map = [
+        ("🎤", "Taylor Swift Debut Album"),
+        ("🎵", "Taylor Swift Fearless Album"),
+        ("💜", "Taylor Swift Speak Now Album"),
+        ("✨", "Taylor Swift Red Album"),
+        ("🦋", "Taylor Swift 1989 Album"),
+        ("💕", "Taylor Swift Lover Album"),
+        ("🎸", "Taylor Swift Folklore Album"),
+        ("⭐", "Taylor Swift Evermore Album"),
+        ("🧣", "Taylor Swift Red Scarf"),
+        ("🏙️", "Taylor Swift 1989 NYC"),
+        ("🐍", "Taylor Swift Reputation Album"),
+        ("🌈", "Taylor Swift Lover Album"),
+        ("🌲", "Taylor Swift Folklore Album"),
+        ("❄️", "Taylor Swift Evermore Album"),
+        ("✒️", "Taylor Swift TTPD Album"),
+        ("🎭", "Taylor Swift TTPD Album"),
+        ("💎", "Taylor Swift Bejeweled"),
+        ("🌙", "Taylor Swift Midnights Album"),
+        ("🕰️", "Taylor Swift Midnights Album"),
+        ("📝", "Taylor Swift Lyrics")
+    ]
     emoji_html = '<div class="emoji-scroll">'
-    for emoji in emojis:
-        emoji_html += f'<span class="emoji-item">{emoji}</span>'
+    for emoji, album in emoji_album_map:
+        search_url = f'https://www.google.com/search?q={album.replace(" ", "+")}'
+        emoji_html += f'<a href="{search_url}" target="_blank" class="emoji-item">{emoji}</a>'
     emoji_html += '</div>'
     st.markdown(emoji_html, unsafe_allow_html=True)
     
@@ -769,59 +788,76 @@ def main():
                     st.session_state["song_input"] = song
                     st.rerun()
     
+    # Song input and auto-search on enter
     song_title = st.text_input("Enter a Taylor Swift song title:", key="song_input", placeholder="e.g., Love Story, Cruel Summer, ...")
-    
-    if st.button("Get Lyrics & Word Cloud", type="primary"):
-        if song_title:
-            with st.spinner("Fetching lyrics and generating word cloud..."):
-                lyrics, error = get_lyrics(song_title)
-                if lyrics:
-                    # Determine era and apply styling
-                    era = get_era_for_song(song_title)
-                    era_class = era.lower().replace(' ', '-')
-                    
-                    # Display era header
-                    st.markdown(f'<div class="era-header-{era_class}">🎵 {song_title} • {era} Era</div>', unsafe_allow_html=True)
-                    
-                    # Add annotations to lyrics
-                    annotated_lyrics = add_annotations_to_lyrics(lyrics, song_title)
-                    
-                    # Display lyrics with era-specific styling
-                    st.markdown(f'<div class="era-lyrics-{era_class}">' + annotated_lyrics.replace("\n", "<br>") + '</div>', unsafe_allow_html=True)
-                    
-                    # Display era facts
-                    if era in ERA_CONFIG:
-                        facts = ERA_CONFIG[era]["facts"]
-                        facts_html = '<div class="facts-cloud"><h4>📚 Fun Facts About {era} Era:</h4>'
-                        for fact in facts:
-                            facts_html += f'<div class="fact-item">💡 {fact}</div>'
-                        facts_html += '</div>'
-                        st.markdown(facts_html, unsafe_allow_html=True)
-                    
-                    # Generate hashtags
-                    hashtags = generate_hashtags(song_title, era)
-                    st.markdown("### 📱 Share on Social Media")
-                    hashtag_html = '<div class="hashtags">'
-                    for hashtag in hashtags:
-                        hashtag_html += f'<span class="hashtag">{hashtag}</span>'
-                    hashtag_html += '</div>'
-                    st.markdown(hashtag_html, unsafe_allow_html=True)
-                    
-                    # Vinyl record player animation
-                    st.markdown("### 🎵 Now Playing")
-                    st.markdown('<div class="vinyl-player"></div>', unsafe_allow_html=True)
-                    
-                    # Generate word cloud
-                    st.markdown("### ☁️ Word Cloud")
-                    img = create_wordcloud(lyrics, ERA_CONFIG[era]["color"])
-                    st.image(img, use_container_width=True)
-                    
-                    # Era info
-                    st.info(f"🎤 **{era} Era**: {ERA_CONFIG[era]['font']} font • {ERA_CONFIG[era]['color']} theme • {ERA_CONFIG[era]['animation']} animation")
-                else:
-                    st.error(error)
+    auto_search = st.session_state.get("auto_search", False)
+    if song_title and (auto_search or st.session_state.get("song_input") != ""):
+        st.session_state["auto_search"] = False
+        try:
+            lyrics, error = get_lyrics(song_title)
+        except Exception as e:
+            lyrics, error = None, f"Error: {str(e)}"
+        if lyrics:
+            # Determine era and apply styling
+            era = get_era_for_song(song_title)
+            era_class = era.lower().replace(' ', '-')
+            
+            # Display era header
+            st.markdown(f'<div class="era-header-{era_class}">🎵 {song_title} • {era} Era</div>', unsafe_allow_html=True)
+            
+            # Add annotations to lyrics
+            annotated_lyrics = add_annotations_to_lyrics(lyrics, song_title)
+            
+            # Display lyrics with era-specific styling
+            st.markdown(f'<div class="era-lyrics-{era_class}">' + annotated_lyrics.replace("\n", "<br>") + '</div>', unsafe_allow_html=True)
+            
+            # Display era facts
+            if era in ERA_CONFIG:
+                facts = ERA_CONFIG[era]["facts"]
+                facts_html = '<div class="facts-cloud"><h4>📚 Fun Facts About {era} Era:</h4>'
+                for fact in facts:
+                    facts_html += f'<div class="fact-item">💡 {fact}</div>'
+                facts_html += '</div>'
+                st.markdown(facts_html, unsafe_allow_html=True)
+            
+            # Generate hashtags
+            hashtags = generate_hashtags(song_title, era)
+            st.markdown("### 📱 Share on Social Media")
+            hashtag_html = '<div class="hashtags">'
+            for hashtag in hashtags:
+                hashtag_html += f'<span class="hashtag">{hashtag}</span>'
+            hashtag_html += '</div>'
+            st.markdown(hashtag_html, unsafe_allow_html=True)
+            
+            # Vinyl record player animation
+            st.markdown("### 🎵 Now Playing")
+            st.markdown('<div class="vinyl-player"></div>', unsafe_allow_html=True)
+            
+            # Generate word cloud
+            st.markdown("### ☁️ Word Cloud")
+            img = create_wordcloud(lyrics, ERA_CONFIG[era]["color"])
+            st.image(img, use_container_width=True)
+            
+            # Era info
+            st.info(f"🎤 **{era} Era**: {ERA_CONFIG[era]['font']} font • {ERA_CONFIG[era]['color']} theme • {ERA_CONFIG[era]['animation']} animation")
         else:
-            st.warning("Please enter a song title!")
+            st.error(error or "Could not find lyrics. Please check the song title.")
+    else:
+        st.warning("Please enter a song title!")
+    
+    # Add JS to trigger search on Enter
+    st.markdown("""
+    <script>
+    const input = window.parent.document.querySelector('input[type="text"]');
+    if(input){
+      input.addEventListener('keydown', function(e){
+        if(e.key === 'Enter'){
+          window.parent.postMessage({isStreamlitMessage: true, type: 'streamlit:setComponentValue', key: 'auto_search', value: true}, '*');
+        }
+      });
+    }
+    </script>
+    """, unsafe_allow_html=True)
     
     st.markdown('<div class="footer">🎵 Built with ❤️ for Swifties | Powered by Streamlit & Genius API</div>', unsafe_allow_html=True)
 
