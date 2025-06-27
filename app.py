@@ -850,8 +850,6 @@ def main():
         box-shadow: 2px 0 8px rgba(0,0,0,0.04);
         width: 340px !important;
         max-width: 340px !important;
-        background: linear-gradient(135deg, #0a2540 0%, #111 100%) !important;
-        color: #fff !important;
     }
     /* Adjust main content to not go under sidebar */
     div.block-container {
@@ -864,9 +862,29 @@ def main():
         min-width: 320px !important;
         max-width: 400px !important;
         width: 22vw !important;
-        background: linear-gradient(135deg, #0a2540 0%, #111 100%) !important;
-        color: #fff !important;
         overflow-y: auto;
+    }
+    .emoji-scroll {
+        width: 100%;
+        max-width: 100vw;
+        overflow-x: auto;
+        overflow-y: hidden;
+        white-space: nowrap;
+        padding-bottom: 0.5rem;
+        margin-bottom: 1.2rem;
+        scrollbar-color: #ffb6d5 #fff0f6;
+        scrollbar-width: thin;
+    }
+    .emoji-item {
+        display: inline-block;
+        font-size: 2.2rem;
+        margin: 0 0.7rem;
+        transition: transform 0.2s;
+        cursor: pointer;
+        vertical-align: middle;
+    }
+    .emoji-item:hover {
+        transform: scale(1.2) rotate(-8deg);
     }
     .wordcloud-img {
         display: block;
