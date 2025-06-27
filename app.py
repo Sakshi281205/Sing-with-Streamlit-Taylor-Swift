@@ -703,6 +703,14 @@ st.markdown(f"""
         .main-header {{
             margin-top: 3.5em !important;
         }}
+        [class^="era-lyrics-"] {{
+            white-space: normal !important;
+            max-height: none !important;
+            overflow-y: visible !important;
+            color: #1a1a1a !important;
+            padding: 1em !important;
+            width: 100% !important;
+        }}
     }}
     @media (min-width: 901px) {{
         .show-sidebar-btn {{
