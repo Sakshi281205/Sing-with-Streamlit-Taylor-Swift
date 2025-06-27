@@ -14,7 +14,7 @@ import spotipy
 from spotipy.oauth2 import SpotifyClientCredentials
 
 # --- CONFIG ---
-GENIUS_ACCESS_TOKEN = "your_genius_access_token_here"
+GENIUS_ACCESS_TOKEN = "jtXbVxgBORC18-9tON29Spr3xjQwOsSUae66_RPK6LEK0MIoGaSb8kij04Phji6M"
 SPOTIFY_CLIENT_ID = "t6YNtBA8R5l2VuOA_dC8pGKZTWsMATafMFyJLW91ZRX2Umz6AGwtT0ZTrE-hLnjF"
 SPOTIFY_CLIENT_SECRET = "gQVv9QSFpbKgBiihiDR0INInQG3tKeoSbsVoz7GNJ2O0N9kgmzObLO25vW_aYN4H8BjdUKNYYhnDAJ6I9j8qoQ"
 SPOTIFY_REDIRECT_URI = "http://localhost"
@@ -742,12 +742,14 @@ st.markdown('''<button class="show-sidebar-btn" onclick="document.body.classList
 
 # --- GENIUS API HELPERS ---
 def search_genius_song(song_title, artist="Taylor Swift"):
-    # Make search case-insensitive
     url = "https://api.genius.com/search"
     headers = {"Authorization": f"Bearer {GENIUS_ACCESS_TOKEN}"}
     params = {"q": f"{song_title} {artist}"}
     r = requests.get(url, headers=headers, params=params)
+    print("Genius API status:", r.status_code)
+    print("Genius API response:", r.text)
     if r.status_code != 200:
+        st.warning(f"Genius API error: {r.status_code}")
         return None
     data = r.json()
     hits = data.get("response", {}).get("hits", [])
